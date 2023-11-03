@@ -23,7 +23,7 @@ import sys
 dotenv.load_dotenv('.env')
 
 # Project・Root Path
-project_root = os.path.abspath("../../../")
+project_root = os.path.abspath("../../")
 
 # OPENAI_KEY を取得する
 openai_api_key = dotenv.get_key(f'{project_root}/.env', 'OPENAI_KEY')

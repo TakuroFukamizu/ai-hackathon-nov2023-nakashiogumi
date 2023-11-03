@@ -284,60 +284,6 @@ def suggestion(reqest):
 
 suggestion_result = suggestion(req)
 
-## 提案する・Func
-def suggestion_embeddings(reqest):
-
-  current_step = reqest['current_step']
-      
-  ## 質問 ##
-  question_list = [
-      f'{target_name}のニックネームを考えて決定してください',
-      f'{target_name}とのデートプランを提案してください',
-      f'{target_name}に渡すプレゼントを提案してください',
-      f'{target_name}に告白してください',
-  ] 
-
-  # OpenAI APIによる「埋め込み」(Embedding)DataSet の生成
-  embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
-
-  # 
-  docs = CharacterTextSplitter([chara_setting])
-  
-  # Vector Store
-  db = FAISS.from_documents(docs, embeddings)
-
-  # embed_documents() で Embedding・Data を作成する => 複数のテキストを埋め込みに変換する
-  embedding_chara_setting = embeddings.embed_documents([chara_setting])
-
-  ## ChatGPT・Instance ##
-  llm = ChatOpenAI(
-      openai_api_key=openai_api_key,
-      model="gpt-4",
-      temperature=0.2,
-  )
-
-  query = "埋め込みのつらみ"
-  results = db.similarity_search(query)
-  print(results[0].page_content)
-
-  ## LLM に渡すための Messageを作成する
-  messages = [
-      SystemMessage(content=chara_setting), # System Message = AIの「キャラ設定」のようなもの 
-      # SystemMessage(content=embedding_chara_setting), # System Message = AIの「キャラ設定」のようなもの 
-      HumanMessage(content=question_list[current_step]) # 提案する内容 
-  ]
-
-  response = llm(messages)
-
-  print(response)
-
-  return {
-    'result_msg': response,
-    'name': proposer_name,
-  }
-
-
-
 
 
 ## リアクションをする・Func 
@@ -391,30 +337,57 @@ def reaction(req):
 
 
 
+# ## 提案する・Func
+# def suggestion_embeddings(reqest):
 
-# print('---------------------------------------------------------------')
+#   current_step = reqest['current_step']
+      
+#   ## 質問 ##
+#   question_list = [
+#       f'{target_name}のニックネームを考えて決定してください',
+#       f'{target_name}とのデートプランを提案してください',
+#       f'{target_name}に渡すプレゼントを提案してください',
+#       f'{target_name}に告白してください',
+#   ] 
 
-# # Test用
-# def question (): 
+#   # OpenAI APIによる「埋め込み」(Embedding)DataSet の生成
+#   embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
+
+#   # 
+#   docs = CharacterTextSplitter([chara_setting])
+  
+#   # Vector Store
+#   db = FAISS.from_documents(docs, embeddings)
+
+#   # embed_documents() で Embedding・Data を作成する => 複数のテキストを埋め込みに変換する
+#   embedding_chara_setting = embeddings.embed_documents([chara_setting])
 
 #   ## ChatGPT・Instance ##
 #   llm = ChatOpenAI(
 #       openai_api_key=openai_api_key,
 #       model="gpt-4",
-#       temperature=0.1,
+#       temperature=0.2,
 #   )
 
+#   query = "埋め込みのつらみ"
+#   results = db.similarity_search(query)
+#   print(results[0].page_content)
 
 #   ## LLM に渡すための Messageを作成する
 #   messages = [
-#       HumanMessage(content='LangChain で OpenAIEmbeddings() で Embedding したデータを ChatOpenAI() に渡して、回答を得る方法は？ SampleCode') # 提案する内容 
+#       SystemMessage(content=chara_setting), # System Message = AIの「キャラ設定」のようなもの 
+#       # SystemMessage(content=embedding_chara_setting), # System Message = AIの「キャラ設定」のようなもの 
+#       HumanMessage(content=question_list[current_step]) # 提案する内容 
 #   ]
 
 #   response = llm(messages)
 
 #   print(response)
 
-# question()
+#   return {
+#     'result_msg': response,
+#     'name': proposer_name,
+#   }
 
 
 
