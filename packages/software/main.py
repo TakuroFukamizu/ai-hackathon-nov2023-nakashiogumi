@@ -86,7 +86,7 @@ async def cleanup_background_tasks(app):
     
 
 app = web.Application()
-app.add_routes([web.get('/hello', hello)])
+app.add_routes([web.get('/', main)])
 app.on_startup.append(start_background_tasks)
 app.on_cleanup.append(cleanup_background_tasks)
 
