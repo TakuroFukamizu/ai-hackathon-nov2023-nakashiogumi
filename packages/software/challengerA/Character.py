@@ -21,6 +21,16 @@ import dotenv
 import os
 import sys
 
+# Embedding用
+from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.text_splitter import CharacterTextSplitter
+
+# テキストファイルを読み込む
+from langchain.document_loaders import TextLoader
+
+# Vector Store
+from langchain.vectorstores import FAISS
+
 ## 環境変数 ## 
 dotenv.load_dotenv('.env')
 
@@ -35,7 +45,7 @@ openai_api_key = dotenv.get_key(f'{project_root}/.env', 'OPENAI_KEY')
 
 ## JSONファイルを読み込む & Parseする ##
 
-# 1. 提案する側のキャラクター
+# 1. 提案する側のキャラクター Ver. Giorno
 chara_json_file = open(f'{project_root}/dataset/proposer/giorno.json', 'r', encoding="utf-8")
 proposer_chara_data = json.load(chara_json_file)
 
@@ -86,9 +96,9 @@ upsetSerif = f'''
 for value in upsetSerifList:
   upsetSerif = f'{upsetSerif}\n * {value}'
 
-print('動揺した時のセリフ')
-print(upsetSerif)
-print('----------------------------------------------------')
+# print('動揺した時のセリフ')
+# print(upsetSerif)
+# print('----------------------------------------------------')
 
 
 # 結合する
@@ -106,9 +116,9 @@ loseSerif = f'''
 for value in loseSerifList:
   loseSerif = f'{loseSerif}\n * {value}'
 
-print('失敗した時のセリフ')
-print(loseSerif)
-print('----------------------------------------------------')
+# print('失敗した時のセリフ')
+# print(loseSerif)
+# print('----------------------------------------------------')
 
 
 # 結合する
@@ -127,9 +137,9 @@ winSerif = f'''
 for value in winSerifList:
   winSerif = f'{winSerif}\n * {value}'
 
-print('成功した時のセリフ')
-print(winSerif)
-print('----------------------------------------------------')
+# print('成功した時のセリフ')
+# print(winSerif)
+# print('----------------------------------------------------')
 
 
 # 結合する
@@ -148,28 +158,93 @@ features = f'''
 for value in featuresList:
   features = f'{features}\n * {value}'
 
-print('性格・行動')
-print(features)
-print('----------------------------------------------------')
+# print('性格・行動')
+# print(features)
+# print('----------------------------------------------------')
 
 
 # 結合する
-chara_setting = f'{chara_setting}\n * {featuresList}'
+chara_setting = f'{chara_setting}\n * {features}'
 
 
-print('最終的に完成した・キャラクター設定')
-print(chara_setting)
+# print('最終的に完成した・キャラクター設定')
+# print(chara_setting)
+# print('----------------------------------------------------')
+
+
+## Embedding・VectorData の学習
+
+# 1. デートの学習・JSON・Data
+date_input_output = open(f'{project_root}/dataset/embedding_io/date_input_output.json', 'r', encoding="utf-8")
+date_training_data = json.load(date_input_output)
+
+
+# デートの学習・Text・Data
+date_training_data_text = f'''
+{proposer_name}の提案するデートプランの事例: 
+'''
+
+# 文字列リストを取り出して、Setする
+for value in date_training_data:
+  date_training_data_text = f'{date_training_data_text}\n * {value["input"]}'
+
+# print('date_training_data_text')
+# print(date_training_data_text)
+# print('----------------------------------------------------')
+
+# 結合する
+chara_setting = f'{chara_setting}\n * {date_training_data_text}'
+
+
+# 2. プレゼントの学習・Data
+present_input_output = open(f'{project_root}/dataset/embedding_io/present_input_output.json', 'r', encoding="utf-8")
+present_training_data = json.load(present_input_output)
+
+
+# プレゼントの学習・Text・Data
+present_training_data_text = f'''
+{proposer_name}の提案するプレゼントの事例: 
+'''
+
+# 文字列リストを取り出して、Setする
+for value in present_training_data:
+  present_training_data_text = f'{present_training_data_text}\n * {value["input"]}'
+
+# print('present_training_data_text')
+# print(present_training_data_text)
+# print('----------------------------------------------------')
+
+# 結合する
+chara_setting = f'{chara_setting}\n * {present_training_data_text}'
+
+
+# 3. 告白の学習・Data
+propose_input_output = open(f'{project_root}/dataset/embedding_io/propose_input_output.json', 'r', encoding="utf-8")
+propose_training_data = json.load(propose_input_output)
+
+# プレゼントの学習・Text・Data
+propose_training_data_text = f'''
+{proposer_name}の告白・プロポーズの事例: 
+'''
+
+# 文字列リストを取り出して、Setする
+for value in propose_training_data:
+  propose_training_data_text = f'{propose_training_data_text}\n * {value["input"]}'
+
+print('propose_training_data_text')
+print(propose_training_data_text)
 print('----------------------------------------------------')
 
+# 結合する
+chara_setting = f'{chara_setting}\n * {propose_training_data_text}'
 
 
 # main.pyから受け取る・DataSet Ver. Test
 req = {
   'result': True, # True | False (reaction の時だけ欲しい)
-  'result_msg': 'ロボ玉が好き！！', # reaction の時だけ欲しい
+  'result_msg': 'ロボ玉が好き！！', # 回答する人の Msg (reaction の時だけ欲しい)
   'current_step': 0, # 0 〜 3 両方必要
 }
-
 
 ## 提案する・Func
 def suggestion(reqest):
@@ -189,7 +264,7 @@ def suggestion(reqest):
       openai_api_key=openai_api_key,
       model="gpt-4",
       temperature=0.2,
-  )  
+  )
 
   ## LLM に渡すための Messageを作成する
   messages = [
@@ -206,25 +281,85 @@ def suggestion(reqest):
     'name': proposer_name,
   }
 
-
 suggestion_result = suggestion(req)
+
+## 提案する・Func
+def suggestion_embeddings(reqest):
+
+  current_step = reqest['current_step']
+      
+  ## 質問 ##
+  question_list = [
+      f'{target_name}のニックネームを考えて決定してください',
+      f'{target_name}とのデートプランを提案してください',
+      f'{target_name}に渡すプレゼントを提案してください',
+      f'{target_name}に告白してください',
+  ] 
+
+  # OpenAI APIによる「埋め込み」(Embedding)DataSet の生成
+  embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
+
+  # 
+  docs = CharacterTextSplitter([chara_setting])
+  
+  # Vector Store
+  db = FAISS.from_documents(docs, embeddings)
+
+  # embed_documents() で Embedding・Data を作成する => 複数のテキストを埋め込みに変換する
+  embedding_chara_setting = embeddings.embed_documents([chara_setting])
+
+  ## ChatGPT・Instance ##
+  llm = ChatOpenAI(
+      openai_api_key=openai_api_key,
+      model="gpt-4",
+      temperature=0.2,
+  )
+
+  query = "埋め込みのつらみ"
+  results = db.similarity_search(query)
+  print(results[0].page_content)
+
+  ## LLM に渡すための Messageを作成する
+  messages = [
+      SystemMessage(content=chara_setting), # System Message = AIの「キャラ設定」のようなもの 
+      # SystemMessage(content=embedding_chara_setting), # System Message = AIの「キャラ設定」のようなもの 
+      HumanMessage(content=question_list[current_step]) # 提案する内容 
+  ]
+
+  response = llm(messages)
+
+  print(response)
+
+  return {
+    'result_msg': response,
+    'name': proposer_name,
+  }
+
+
+
 
 
 ## リアクションをする・Func 
-def reaction(reqest):
+def reaction(req):
 
-  result = reqest['result']
+  # 進行中の Step
+  current_step = req['current_step']
+  
+  # 成功/失敗 (True/False) 
+  result = req['result']
 
-  current_step = reqest['current_step']
+  # 反応・Msg
+  result_msg = req['result_msg']
 
+  # 成功 | 失敗 | 動揺 の 3-Type のどれか
   msg = ''
 
   if (result):
-    msg = f'{proposer_name}は、成功した時の発言をします'
+    msg = f'{proposer_name}は、{target_name}の{result_msg}に対して、成功した時の発言をします'
   elif (not result and current_step == 3):
-    msg =  f'{proposer_name}は、失敗した時の発言をします'
+   msg = f'{proposer_name}は、{target_name}の{result_msg}に対して、失敗した時の発言をします'
   else :
-    msg = f'{proposer_name}は、動揺した時の発言をします'
+    msg = f'{proposer_name}は、{target_name}の{result_msg}に対して、動揺した時の発言をします'
 
 
   ## ChatGPT・Instance ##
@@ -250,14 +385,34 @@ def reaction(reqest):
   }
 
 
-reaction_result = reaction(req)
+# reaction_result = reaction(req)
 
 
 
 
+# print('---------------------------------------------------------------')
+
+# # Test用
+# def question (): 
+
+#   ## ChatGPT・Instance ##
+#   llm = ChatOpenAI(
+#       openai_api_key=openai_api_key,
+#       model="gpt-4",
+#       temperature=0.1,
+#   )
 
 
+#   ## LLM に渡すための Messageを作成する
+#   messages = [
+#       HumanMessage(content='LangChain で OpenAIEmbeddings() で Embedding したデータを ChatOpenAI() に渡して、回答を得る方法は？ SampleCode') # 提案する内容 
+#   ]
 
+#   response = llm(messages)
+
+#   print(response)
+
+# question()
 
 
 
