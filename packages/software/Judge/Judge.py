@@ -35,7 +35,6 @@ llm = ChatOpenAI(
     temperature=0.2,
 )
 
-
 ## 人物設定 ##
 
 # 提案者Aのキャラクター情報の取得
@@ -140,9 +139,9 @@ def judgment(request):
 
     if response and response2:
         return {
-            'result': selected_proposer,  # 仮にresponseが結果を含んでいるとします。
+            'result': result, 
             'result_msg': response2,
-            'current_step': request[0]['current_step'],  # 修正された変数名とキーへのアクセス
+            'current_step': request[0]['current_step'], 
         }
 
 # main.pyから受け取る・DataSet Ver. Test
