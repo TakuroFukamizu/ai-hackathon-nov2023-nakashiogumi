@@ -1,3 +1,4 @@
+import asyncio
 from bottle import route, run, request, post
 import requests
 import json
@@ -15,91 +16,66 @@ def hello():
     return "Hello World!"
 
 @route('/challenger/<name>/', method='POST')
+async def vv_request_speech(text):
+    # ここに非同期での音声出力のコードを記述
+    print(text)  # 仮の出力
+    await asyncio.sleep(1)  # 音声出力にかかる時間を模擬
 
-def vv_resuqest_speach(text):
-    # ここに音声出力のコードを記述
-    pass
+async def handle_suggestion(current_step):
+    # 各キャラクターからの提案を並行して取得
+    suggestion_results = await asyncio.gather(
+        suggestionA({'current_step': current_step}),
+        suggestionB({'current_step': current_step})
+    )
 
+    # 提案結果をhogehogeに送り判定を受け取る
+    suggestions = [{'message': res['result_msg'], 'current_step': current_step, 'fromType': 'A' if i == 0 else 'B'}
+                   for i, res in enumerate(suggestion_results)]
+    judgement = hogehoge(suggestions)
 
-def process_step(step, request):
-    # STEPごとに処理を分ける
-    if step == 0:
-        # 呼び名・ニックネームの提案
-        pass
-    elif step == 1:
-        # デートプランの提案
-        pass
-    elif step == 2:
-        # プレゼントの提案
-        pass
-    elif step == 3:
-        # 告白の処理
-        pass
-  
-req = {
-  'result': True, # True | False (reaction の時だけ欲しい)
-  'result_msg': 'ロボ玉が好き！！', # reaction の時だけ欲しい
-  'current_step': 0, # 0 〜 3 両方必要
-}
+    # 判定結果を音声出力
+    await vv_request_speech(judgement['result_msg'])
 
-def speak_challenger():
-    steps = [0, 1, 2, 3]  # 処理するSTEP
-    request = 'some_request'  # リクエストの詳細
+    # 勝者の提案を次のステップに進める
+    if True in judgement['result']:
+        winner_index = judgement['result'].index(True)
+        if winner_index == 0:
+            return 'A', current_step + 1
+        else:
+            return 'B', current_step + 1
+    else:
+        # どちらも勝者がいない場合は次のステップに進まない
+        return None, current_step
 
-    # スレッドオブジェクトの生成
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        futures = {
-            executor.submit(suggestionA, request): 'A',
-            executor.submit(suggestionB, request): 'B'
-        }
-        # ABそれぞれの処理を非同期実行するLoop
-        for future in concurrent.futures.as_completed(futures):
-            try:
-                response = future.result()
-                result_message = response.get('result_msg', '')
-                # 結果を音声出力ファイルに渡す
-                vv_resuqest_speach(result_message)
-                # 結果を判定ロジックに渡す
-                hogehoge(result_message)
-                
-                
-            except Exception as exc:
-                print(f'Generated an exception: {exc}')
+async def handle_reaction(character, current_step):
+    if character == 'A':
+        response = await reactionA({'current_step': current_step})
+    else:
+        response = await reactionB({'current_step': current_step})
 
-    # 以下にreactionの処理を追加する
-      
-def speak_challenger(name):
-    data = json.load(request.json)
-    text = data['text']
-    
+    # 反応を音声出力
+    await vv_request_speech(response['result_msg'])
 
-    # LoopしてSTEP1-4を回す
-    # STEP-0. 呼び名・ニックネームの提案
-    # STEP-1. デートプランの提案
-    # STEP-2. プレゼントの提案
-    # STEP-3. 告白
-    
+async def main():
+    current_step = 0
+    winner = None
 
-    
-    # voicevoxに投げる
-    vv_resuqest_speach(text)
-    # TODO: M5Stackに投げる
-    
-    
-    # judgeからのresult:{step:0, status:'ok'|'ng', message}
-    # suggestionからのresult: {step:0, [{challenger: {id:XX, name:XX, nickName: XX}, message},]
-        # 提案をmainが受け取ったら2つの提案をjudgeに渡す
+    while current_step <= 3:
+        if winner is not None:
+            # 前のステップの勝者から始める
+            winner_suggestion = suggestionA if winner == 'A' else suggestionB
+            res = await winner_suggestion({'current_step': current_step})
+            await vv_request_speech(res['result_msg'])
+        winner, current_step = await handle_suggestion(current_step)
+        if winner is None:
+            # 両方のreactionを呼び出す
+            await asyncio.gather(
+                handle_reaction('A', current_step),
+                handle_reaction('B', current_step)
+            )
+            break  # 反応後にループ終了
 
-    # response返す
-    # 受け取ったらmode resultを提案者に
-    # thread分けない
-    # httpで
-    # 順番に分ける
-    # challengerABの解答を考えるのを順番にやったら長すぎるから並列にする
-    # 直列にしないと制御が増える
+    print("処理を終了します。")  # すべての処理が終わったことを出力
 
-
-run(host='localhost', port=8080, debug=True)
-
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    asyncio.run(main())
