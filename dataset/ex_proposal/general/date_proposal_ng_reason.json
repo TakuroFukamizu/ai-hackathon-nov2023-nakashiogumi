@@ -1,0 +1,381 @@
+{
+  "dataset": [
+    {
+      "invitation": "今夜、一緒に夕食に行きませんか？",
+      "response": "今夜はすでに予定があるので行けません。",
+      "reason": "既存の予定がある",
+      "politeness": "高",
+      "acceptance": false
+    },
+    {
+      "invitation": "週末に映画を見に行かない？",
+      "response": "ありがとうございますが、週末は家族と過ごす時間を大切にしているんです。",
+      "reason": "家族との時間を優先",
+      "politeness": "高",
+      "acceptance": false
+    },
+    {
+      "invitation": "今度の土曜日に一緒にコンサートに行きませんか？",
+      "response": "コンサートは興味がありますが、今はちょっとデートを控えています。",
+      "reason": "デートから距離を置きたい",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "この週末に海にドライブに行くけど、どう？",
+      "response": "海は好きなんですが、今は少し忙しくて余裕がないんです。",
+      "reason": "仕事や個人的な忙しさ",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "来週末、僕と一緒にハイキングに行かない？",
+      "response": "ハイキングは体力に自信がないので、今回は遠慮しますね。",
+      "reason": "健康や体力の懸念",
+      "politeness": "高",
+      "acceptance": false
+    },
+    {
+      "invitation": "僕の誕生日パーティーに来ませんか？",
+      "response": "パーティーは楽しそうですね。でも、人混みは苦手なのでごめんなさい。",
+      "reason": "人混みや社交的な状況を避けたい",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "今週末、一緒にカフェでゆっくりしませんか？",
+      "response": "カフェでのんびりもいいですね。でも、最近は自分の時間を大切にしているので。",
+      "reason": "自分の時間を大切にしたい",
+      "politeness": "高",
+      "acceptance": false
+    },
+    {
+      "invitation": "もし興味があったら、次の週末にゴルフに行きませんか？",
+      "response": "ゴルフは苦手なので、別の機会にしてください。",
+      "reason": "特定の活動が苦手または興味がない",
+      "politeness": "低",
+      "acceptance": false
+    },
+    {
+      "invitation": "今度の金曜日にバーで飲みませんか？",
+      "response": "金曜日はいつも習い事があるので、それは難しいですね。",
+      "reason": "定期的な予定やコミットメント",
+      "politeness": "高",
+      "acceptance": false
+    },
+    {
+      "invitation": "来週の展覧会に行こうと思ってるんだけど、どう？",
+      "response": "展覧会は魅力的だけど、来週はちょうど別のイベントがあるんだ。",
+      "reason": "他のイベントへの参加",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "今週末に私の別荘に遊びに来ない？",
+      "response": "別荘は魅力的だけど、この週末はもう計画があるの。",
+      "reason": "すでに計画がある",
+      "politeness": "高",
+      "acceptance": false
+    },
+    {
+      "invitation": "土曜日にランチでもどう？",
+      "response": "ダイエット中で、外食は控えてるんだ。また次の機会にしてもらえる？",
+      "reason": "健康やダイエットのコミットメント",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "来週末、キャンプに行こうよ！",
+      "response": "アウトドアは好きだけど、キャンプはちょっと苦手で…。",
+      "reason": "アウトドア活動への苦手意識",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "今夜、クラブに踊りに行かない？",
+      "response": "クラブはちょっと…騒がしい場所は得意じゃないんだ。",
+      "reason": "環境に対する個人的な好み",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "来週のコンサートチケット、余ってるんだけど来る？",
+      "response": "音楽は好きだけど、その日は早朝から仕事なんだ。すごく残念！",
+      "reason": "仕事や他の責任",
+      "politeness": "高",
+      "acceptance": false
+    },
+    {
+      "invitation": "日曜日にヨガクラスに来ない？リラックスできるよ。",
+      "response": "ヨガは気になるけど、日曜日は家でゆっくりしたいな。",
+      "reason": "リラクゼーションや自己ケアへのニーズ",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "来週末、僕のおいしい手料理を食べに来ない？",
+      "response": "料理の誘いは嬉しいけど、来週末は友達との約束があるんだ。",
+      "reason": "友人との約束",
+      "politeness": "高",
+      "acceptance": false
+    },
+    {
+      "invitation": "月曜日にジムで一緒にワークアウトしようよ。",
+      "response": "運動は大切にしてるけど、月曜日は他のルーチンがあるんだ。",
+      "reason": "既存のルーチンや習慣",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "今度の週末に美術館へ行かない？",
+      "response": "美術館は興味深いけど、今度の週末はちょうど他の用事があって…。",
+      "reason": "他の用事がある",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "火曜日に新しいレストランを試してみない？",
+      "response": "お誘いは嬉しいけど、最近は外食を控えていて。",
+      "reason": "健康や食事の管理",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "来週末、温泉にでも行かない？",
+      "response": "温泉は大好きだけど、来週末は旅行の予定があるんだ。",
+      "reason": "既に旅行の計画がある",
+      "politeness": "高",
+      "acceptance": false
+    },
+    {
+      "invitation": "明日の夜、ジャズバーに来ない？",
+      "response": "音楽は楽しいけど、明日の夜はもう予定が入っているんだ。",
+      "reason": "既存の予定がある",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "今週の土曜日にピクニックにどう？",
+      "response": "ピクニックはいいね、でもこの週末は体調を整える必要があって。",
+      "reason": "体調管理",
+      "politeness": "高",
+      "acceptance": false
+    },
+    {
+      "invitation": "今週末にバーベキューに来ないか？",
+      "response": "バーベキューは楽しそうだけど、実は肉を食べないんだ。",
+      "reason": "食の制限や選択",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "来月のロックコンサートに一緒に行こうよ。",
+      "response": "コンサートは魅力的だけど、来月はかなり忙しくなりそうで。",
+      "reason": "将来的な忙しさの予想",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "次のフルムーンの夜に海を見に行かない？",
+      "response": "月夜の海はロマンチックだろうね。でも夜遅くは出かけるのを避けているんだ。",
+      "reason": "夜間の外出を避ける生活スタイル",
+      "politeness": "高",
+      "acceptance": false
+    },
+    {
+      "invitation": "週末にゲーム大会を開くけど、来る？",
+      "response": "ゲームは好きだけど、週末は特に家事が忙しくて…。",
+      "reason": "家事や個人的な責任",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "今週末にハイキングに行こうよ！",
+      "response": "ハイキングは好きだけど、足をくじいちゃって。治るまで無理そうだ。",
+      "reason": "怪我や健康上の問題",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "今度の映画祭りに行こうよ、いい映画がたくさんあるよ！",
+      "response": "映画は好きだけど、最近は読書にはまっていて…",
+      "reason": "他の趣味への興味",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "週末に海でサーフィンしようよ！",
+      "response": "サーフィン、カッコいいよね。でも水の中はちょっと…",
+      "reason": "特定の活動への不得意意識",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "明後日、一緒にコンサートに行かない？チケット余ってるんだ。",
+      "response": "その日はちょうど仕事の締め切りがあって、無理そう…",
+      "reason": "仕事の締め切り",
+      "politeness": "高",
+      "acceptance": false
+    },
+    {
+      "invitation": "次の休日に長距離ドライブに行かない？景色がいい場所知ってるよ。",
+      "response": "ドライブは気分転換になるけど、最近は節約中でね。",
+      "reason": "経済的な理由",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "今度の週末に一緒に料理クラスに参加しない？",
+      "response": "料理を学ぶのは楽しそうだけど、最近は特定の食材にアレルギーがあって…",
+      "reason": "健康上の制限",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "今夜、カラオケに行くんだけど、一緒にどう？",
+      "response": "カラオケは楽しいけど、最近は夜は早く寝ることにしていて。",
+      "reason": "健康やライフスタイルへの配慮",
+      "politeness": "高",
+      "acceptance": false
+    },
+    {
+      "invitation": "今週末、山登りに行こうよ！いいトレーニングになるし。",
+      "response": "運動はしたいけど、高所恐怖症で、山登りは苦手なんだ。",
+      "reason": "個人的な恐怖や不安",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "週末に一緒に市場に行って新鮮な食材を探さない？",
+      "response": "市場は色々と発見があっていいね。でも週末は家族サービスの日で…",
+      "reason": "家族との時間",
+      "politeness": "高",
+      "acceptance": false
+    },
+    {
+      "invitation": "今週末にビーチバレーしない？",
+      "response": "ビーチは大好きだけど、実は運動神経が悪くて…",
+      "reason": "スポーツの技能や自信の欠如",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "来週のオープンマイクナイトに一緒に出ない？",
+      "response": "ステージに立つのは緊張するから、見る専門にしてるんだ。",
+      "reason": "パフォーマンスに対する不安",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "今週末、ペット展示会があるんだけど見に行こうよ！",
+      "response": "動物は好きだけど、実はアレルギーがあって難しいんだよね。",
+      "reason": "健康上の制限",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "今度の金曜日に、皆でビーチクリーンアップに参加しない？",
+      "response": "環境保護活動は支持してるけど、その日は会社のボランティア活動があって。",
+      "reason": "他のボランティア活動への参加",
+      "politeness": "高",
+      "acceptance": false
+    },
+    {
+      "invitation": "週末にDIYワークショップがあるんだけど、興味ある？",
+      "response": "手作りのものは魅力的だけど、最近はデジタルアートに夢中で。",
+      "reason": "他の趣味に興味がある",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "明後日の夜、天体観測に行かない？流星群が見られるかも。",
+      "response": "夜空は美しいよね。でも明後日は早朝に用事があって、早めに寝ないと。",
+      "reason": "早朝の予定がある",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "この週末、自転車で町を巡ろうよ！",
+      "response": "自転車は楽しそうだけど、最近足を痛めててね。",
+      "reason": "身体の不調",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "来月のマラソンイベントに一緒にエントリーしない？",
+      "response": "運動は大事にしてるけど、長距離走は得意じゃなくて。",
+      "reason": "運動の好み",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "今週のワインテイスティングイベントに来ない？",
+      "response": "ワインのイベントは素敵だけど、実はアルコールを控えてるんだ。",
+      "reason": "アルコールへの個人的な制限",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "今夜、皆で星を見に山へ行くんだけど、どう？",
+      "response": "聞いてみると楽しそうだけど、夜遅くの運転は避けたいんだよね。",
+      "reason": "夜間の運転への懸念",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "土曜日に地元のフェスティバルに行こうよ、音楽もフードも楽しめるよ！",
+      "response": "音楽フェスはいつも盛り上がるよね。ただ、今週末は静かに過ごしたい気分なんだ。",
+      "reason": "リラックスしたい気分",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "今度のランチ、新しくオープンしたスペイン料理のレストランに行かない？",
+      "response": "新しいレストランの探索はいつも楽しいけど、今は特定のダイエットプランを実行中で。",
+      "reason": "ダイエット中",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "火曜日に、私たちのお気に入りのバンドがバーで演奏するんだけど来る？",
+      "response": "そのバンドいいよね！でも火曜日は夜遅くまで仕事なんだよね。",
+      "reason": "仕事の予定",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "週末、一緒にヨガクラスを受けない？リラックスできると思うよ。",
+      "response": "ヨガは心身の健康にいいって聞くけど、ちょっと体が硬くて自信がないんだ。",
+      "reason": "体の柔軟性が足りない",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "今度の週末にピクニックに行かない？公園でリラックスしよう！",
+      "response": "ピクニックは理想的だけど、実は花粉症で今の時期は外に出るのが辛いんだ。",
+      "reason": "健康上の問題",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "来週末、キャンプに行こうよ！星がきれいに見える場所があるんだ。",
+      "response": "星空の下でのキャンプは魅力的だけど、最近虫刺されがひどくてね。",
+      "reason": "虫刺されへの心配",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "今度の休みに、絵画教室に参加しない？クリエイティブな時間を過ごせると思うよ。",
+      "response": "絵を描くのはいいストレス解消になりそう。でも今は別のプロジェクトに集中していて、それ以外のことは考えられないんだ。",
+      "reason": "他のプロジェクトへの集中",
+      "politeness": "中",
+      "acceptance": false
+    },
+    {
+      "invitation": "火曜の夜、一緒にボードゲームカフェに行こうよ！",
+      "response": "ボードゲームは面白いよね。ただ、その夜はもう本を読むことに決めているんだ。",
+      "reason": "既に他の計画がある",
+      "politeness": "高"
+    }
+  ]
+}

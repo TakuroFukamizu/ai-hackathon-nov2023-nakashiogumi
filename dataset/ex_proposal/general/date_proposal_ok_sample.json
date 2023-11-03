@@ -1,0 +1,60 @@
+{
+  "dataset": [
+    {
+      "invitation": "来週末に映画を見に行かない？",
+      "response": "いいね！見たい映画があったから楽しみにしてるよ。",
+      "reason": "映画への興味",
+      "politeness": "高",
+      "acceptance": true
+    },
+    {
+      "invitation": "今度の土曜日にジャズバーに行こうよ。いいバンドが来るらしいよ。",
+      "response": "音楽は大好きだし、ジャズもいいね！土曜日は空いてるから行こう。",
+      "reason": "音楽への興味と予定の空き",
+      "politeness": "高",
+      "acceptance": true
+    },
+    {
+      "invitation": "今週末、一緒にハイキングに行こうよ。絶景が見れるトレイルがあるんだ。",
+      "response": "ハイキングはいつでも大歓迎！自然の中でリフレッシュできるね。",
+      "reason": "アクティビティへの関心",
+      "politeness": "高",
+      "acceptance": true
+    },
+    {
+      "invitation": "明日、ランチにサラダバーに行かない？新鮮な野菜が食べられるよ。",
+      "response": "健康的なランチは最高だね！時間もちょうどいいから行こう。",
+      "reason": "健康的な食事への関心",
+      "politeness": "高",
+      "acceptance": true
+    },
+    {
+      "invitation": "週末に新しいカフェのオープニングイベントがあるんだけど、興味ある？",
+      "response": "カフェの開店はいつでもワクワクするね。コーヒー好きとしては見逃せない！",
+      "reason": "カフェとコーヒーへの愛好",
+      "politeness": "高",
+      "acceptance": true
+    },
+    {
+      "invitation": "来月のコンサートチケット、余ってるんだけど一緒に行かない？",
+      "response": "それはラッキー！コンサートはいつでも盛り上がるし、一緒に行けたら最高だよ。",
+      "reason": "コンサートへの関心",
+      "politeness": "高",
+      "acceptance": true
+    },
+    {
+      "invitation": "今週の末に友達とバーベキューをするんだけど、来る？",
+      "response": "バーベキュー大好き！友達との時間も大切にしたいから、ぜひ参加させて。",
+      "reason": "食事と友達との交流への関心",
+      "politeness": "高",
+      "acceptance": true
+    },
+    {
+      "invitation": "今度の金曜にカラオケナイトを計画してるんだけど、どう？",
+      "response": "カラオケはストレス発散になるしね、楽しみだよ！カウントミーイン！",
+      "reason": "楽しみとストレス解消",
+      "politeness": "高",
+      "acceptance": true
+    }
+  ]
+}
