@@ -12,5 +12,6 @@ dotenv.config(envpath);
 
 export const Configs = {
     voicevoxUrl: process.env.VOICEVOX_URL,
-    port: process.env.PORT
+    port: process.env.PORT,
+    serialPath: process.env.SERIAL_PATH,
 };

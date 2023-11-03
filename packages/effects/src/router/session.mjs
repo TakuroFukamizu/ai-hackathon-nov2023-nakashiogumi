@@ -1,16 +1,18 @@
 import express from 'express';
+import Led from '../drivers/led.mjs';
 
 const router = express.Router();
 
 router.post('/reset', async (req, res, next) => {
     try { 
-        // TODO: LEDの演出終了
+        // LEDの演出終了
+        Led.send('0'); // EFFECT_MODE_NONE
 
-        res.setStatus(200);
+        res.status(200);
         res.send();
     } catch (error) { 
         console.error("error", error); 
-        res.setStatus(500);
+        res.status(500);
         res.send();
     } 
 });

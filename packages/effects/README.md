@@ -12,6 +12,7 @@ set configs to `.env` file
 ```bash
 VOICEVOX_URL=http://192.168.122.230:50021 # address and port for VoiceVox hosted server
 PORT=8080 # port for running effect service
+SERIAL_PATH=/dev/cu.usbserial-xxxxxx # LED Controller
 ```
 
 ## Run
