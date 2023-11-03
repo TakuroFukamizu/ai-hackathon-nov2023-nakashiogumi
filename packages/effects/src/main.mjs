@@ -4,9 +4,12 @@ import bodyParser from 'body-parser';
 import challenger from './router/challenger.mjs';
 import judge from './router/judge.mjs';
 import session from './router/session.mjs';
+import Led from './drivers/led.mjs';
 import { Configs } from './config.mjs';
 
 const port = Configs.port;
+const serialPath = Configs.serialPath;
+
 const app = express();
 
 // body-parser
@@ -24,6 +27,11 @@ app.use('/session', session);
 app.use(function (req, res, next) {
     next(createError(404));
 });
+
+// connect to LED controller
+if (serialPath && serialPath.length > 0) { 
+    Led.open(serialPath);
+}
   
 app.listen(port, () => {
     console.log("listen:", port);

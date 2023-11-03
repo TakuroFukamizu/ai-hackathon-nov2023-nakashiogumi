@@ -1,4 +1,5 @@
 import express from 'express';
+import Led from '../drivers/led.mjs';
 
 const router = express.Router();
 
@@ -10,7 +11,19 @@ router.post('/:id/speak', async (req, res, next) => {
         const name = req.body.name; // チャレンジャー名
         const speakerId = 3;
 
-        // TODO: LEDの演出開始
+        // LEDの演出開始
+        switch (id) {
+            case 'a':
+                await Led.send('1'); // EFFECT_MODE_C1_SPK
+                break;
+            case 'b':
+                await Led.send('2'); // EFFECT_MODE_C2_SPK
+                break;
+            default:
+                console.error('invalid id');
+                // TODO: Error response
+                break;
+        }
     
         // 音声再生
         const filepath = await speach(text, speakerId);
@@ -18,7 +31,8 @@ router.post('/:id/speak', async (req, res, next) => {
             path: filepath,
         });
 
-        // TODO: LEDの演出終了
+        // LEDの演出終了
+        Led.send('0'); // EFFECT_MODE_NONE
 
         res.setStatus(200);
         res.send();
