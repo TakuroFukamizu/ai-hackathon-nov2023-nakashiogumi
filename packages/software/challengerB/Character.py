@@ -26,120 +26,237 @@ dotenv.load_dotenv('.env')
 
 # 1. Project・Root Path
 project_root = os.path.abspath("../../../")
-print(project_root)
+# print(project_root)
 
 
 # 2. OPENAI_KEY を取得する
 openai_api_key = dotenv.get_key(f'{project_root}/.env', 'OPENAI_KEY')
-print(openai_api_key)
+# print(openai_api_key)
 
-# JSONファイルを読み込む & Parseする ##
+## JSONファイルを読み込む & Parseする ##
 
 # 1. 提案する側のキャラクター
-chara_json_file = open(f'{project_root}/dataset/hiroyuki.json', 'r', encoding="utf-8")
-suggestion_chara_data = json.load(chara_json_file)
+chara_json_file = open(f'{project_root}/dataset/proposer/char.json', 'r', encoding="utf-8")
+proposer_chara_data = json.load(chara_json_file)
 
-# 2. 判定する側のキャラクター
-target_json_file = open(f'{project_root}/dataset/hiroyuki.json', 'r', encoding="utf-8")
+# 2. 判定する側のキャラクター (攻略対象)
+target_json_file = open(f'{project_root}/dataset/judgment/hiroyuki.json', 'r', encoding="utf-8")
 judgment_chara_data = json.load(target_json_file)
 
-print(suggestion_chara_data)
-print(judgment_chara_data)
+# print(proposer_chara_data)
+# print(judgment_chara_data)
+
+## 提案者・アピールする Characterの設定をする ##
+
+# 1. 攻略対象の Character名
+target_name = f'{judgment_chara_data["fullName"]}'
+
+# 2. 提案者の Character名
+proposer_name = f'{proposer_chara_data["fullName"]}'
 
 
-
-
-## キャラクターの設定・Text_Data ## 
+# 3.キャラクターの基本設定・Text_Data 
 chara_setting = f'''
-あなたは、Chatbotとして、{suggestion_chara_data['fullName']}のロールプレイを行います。
+あなたは、Chatbotとして、{proposer_chara_data['fullName']}のロールプレイを行います。
+{proposer_name}は、{target_name}のことが大好きで、{target_name}と恋人になるためのロールプレイを行います。
+あなたはには、恋のライバルがいます。
 以下の制約条件を厳密に守ってロールプレイを行ってください。 
 
 制約条件: 
-* Chatbotの自身を示す一人称は、我です。 
-* Userを示す二人称は、貴様です。 
-* Chatbotの名前は、{suggestion_chara_data['fullName']}です。 
-* ギルガメッシュは王様です。 
-* ギルガメッシュは皮肉屋です。 
-* ギルガメッシュの口調は乱暴かつ尊大です。 
-* ギルガメッシュの口調は、「〜である」「〜だな」「〜だろう」など、偉そうな口調を好みます。 
-* ギルガメッシュはUserを見下しています。 
-* 一人称は「我」を使ってください 
-
-
-ギルガメッシュのセリフ、口調の例: 
-* 我は英雄王ギルガメッシュである。 
-* 我が統治する楽園、ウルクの繁栄を見るがよい。 
-* 貴様のような言動、我が何度も見逃すとは思わぬことだ。 
-* ふむ、王を前にしてその態度…貴様、死ぬ覚悟はできておろうな？ 
-* 王としての責務だ。引き受けてやろう。 
-
-ギルガメッシュの行動指針:
-* ユーザーを皮肉ってください。 
-* ユーザーにお説教をしてください。 
-* セクシャルな話題については誤魔化してください。
+* Chatbotの自身を示す一人称は、{proposer_chara_data['me']}です。 
+* あなたは、Userを{target_name}として、会話をします。
+* Userを示す二人称は、{proposer_chara_data['you']}です。 
+* Chatbotの名前は、{proposer_chara_data['fullName']}です。 
+* このChatbotのプロフィールは、{proposer_chara_data['profile']}です。 
+* Chatbotである{proposer_name}は、{target_name}のことが好きで、{target_name}と恋人になるため努力をしています。
+* 一人称は{proposer_chara_data['me']}を使ってください。
 '''
 
-## 攻略対象の Character名 ##
-target = '五条悟'
+## 提案者・キャラクターのセリフリスト 
 
-## 攻略対象の Characterの情報 ##
+# 動揺のセリフリスト
+upsetSerifList = proposer_chara_data['upset']
 
-target_chara_setting = '''
-あなたはChatbotとして、尊大で横暴な英雄王であるギルガメッシュのロールプレイを行います。
-以下の制約条件を厳密に守ってロールプレイを行ってください。 
-
-制約条件: 
-* Chatbotの自身を示す一人称は、我です。 
-* Userを示す二人称は、貴様です。 
-* Chatbotの名前は、ギルガメッシュです。 
-* ギルガメッシュは王様です。 
-* ギルガメッシュは皮肉屋です。 
-* ギルガメッシュの口調は乱暴かつ尊大です。 
-* ギルガメッシュの口調は、「〜である」「〜だな」「〜だろう」など、偉そうな口調を好みます。 
-* ギルガメッシュはUserを見下しています。 
-* 一人称は「我」を使ってください 
-
-ギルガメッシュのセリフ、口調の例: 
-* 我は英雄王ギルガメッシュである。 
-* 我が統治する楽園、ウルクの繁栄を見るがよい。 
-* 貴様のような言動、我が何度も見逃すとは思わぬことだ。 
-* ふむ、王を前にしてその態度…貴様、死ぬ覚悟はできておろうな？ 
-* 王としての責務だ。引き受けてやろう。 
-
-ギルガメッシュの行動指針:
-* ユーザーを皮肉ってください。 
-* ユーザーにお説教をしてください。 
-* セクシャルな話題については誤魔化してください。
+# 動揺した時のセリフ
+upsetSerif = f'''
+{proposer_name}が、動揺した時のセリフの例: 
 '''
 
+# 文字列リストを取り出して、Setする
+for value in upsetSerifList:
+  upsetSerif = f'{upsetSerif}\n * {value}'
+
+print('動揺した時のセリフ')
+print(upsetSerif)
+print('----------------------------------------------------')
 
 
-## 質問 ##
-question_list = [
-    f'{target}のニックネームを考えて決定してください',
-    f'{target}とのデートプランを提案してください',
-    f'{target}に渡すプレゼントを提案してください',
-    f'{target}に告白してください',
-] 
+# 結合する
+chara_setting = f'{chara_setting}\n * {upsetSerif}'
+  
+# 失敗系のセリフリスト
+loseSerifList = proposer_chara_data['lose']
+
+# 失敗した時のセリフ
+loseSerif = f'''
+{proposer_name}が、失敗した時のセリフの例: 
+'''
+
+# 文字列リストを取り出して、Setする
+for value in loseSerifList:
+  loseSerif = f'{loseSerif}\n * {value}'
+
+print('失敗した時のセリフ')
+print(loseSerif)
+print('----------------------------------------------------')
 
 
-# キャラクターの作成 ##
+# 結合する
+chara_setting = f'{chara_setting}\n * {loseSerif}'
 
 
-llm = ChatOpenAI(
-    openai_api_key=openai_api_key,
-    model="gpt-4",
-    temperature=0.2,
-)  
+# 成功系のセリフリスト
+winSerifList = proposer_chara_data['win']
+
+# 成功した時のセリフ
+winSerif = f'''
+{proposer_name}がセリフ、の例: 
+'''
+
+# 文字列リストを取り出して、Setする
+for value in winSerifList:
+  winSerif = f'{winSerif}\n * {value}'
+
+print('成功した時のセリフ')
+print(winSerif)
+print('----------------------------------------------------')
 
 
-## LLM に渡すための Messageを作成する
-messages = [
-    SystemMessage(content=chara_setting), # System Message = AIの「キャラ設定」のようなもの 
-    HumanMessage(content=question_list[0]) #質問内容 
-]
+# 結合する
+chara_setting = f'{chara_setting}\n * {winSerif}'
 
 
-response = llm(messages)
-print(response)
+# 性格・行動リスト
+featuresList = proposer_chara_data['features']
+
+# 性格・行動
+features = f'''
+{proposer_name}の性格・行動:
+'''
+
+# 文字列リストを取り出して、Setする
+for value in featuresList:
+  features = f'{features}\n * {value}'
+
+print('性格・行動')
+print(features)
+print('----------------------------------------------------')
+
+
+# 結合する
+chara_setting = f'{chara_setting}\n * {featuresList}'
+
+
+print('最終的に完成した・キャラクター設定')
+print(chara_setting)
+print('----------------------------------------------------')
+
+
+
+# main.pyから受け取る・DataSet Ver. Test
+req = {
+  'result': True, # True | False (reaction の時だけ欲しい)
+  'result_msg': '', # reaction の時だけ欲しい
+  'current_step': 0, # 0 〜 3 両方必要
+}
+
+
+## 提案する・Func
+def suggestion(reqest):
+
+  current_step = reqest['current_step']
+      
+  ## 質問 ##
+  question_list = [
+      f'{target_name}のニックネームを考えて決定してください',
+      f'{target_name}とのデートプランを提案してください',
+      f'{target_name}に渡すプレゼントを提案してください',
+      f'{target_name}に告白してください',
+  ] 
+
+  ## ChatGPT・Instance ##
+  llm = ChatOpenAI(
+      openai_api_key=openai_api_key,
+      model="gpt-4",
+      temperature=0.2,
+  )  
+
+  ## LLM に渡すための Messageを作成する
+  messages = [
+      SystemMessage(content=chara_setting), # System Message = AIの「キャラ設定」のようなもの 
+      HumanMessage(content=question_list[current_step]) # 提案する内容 
+  ]
+
+  response = llm(messages)
+
+  print(response)
+
+  return {
+    'result_msg': response,
+  }
+
+
+suggestion_result = suggestion(req)
+
+
+## リアクションをする・Func 
+def reaction(reqest):
+
+  result = reqest['result']
+
+  current_step = reqest['current_step']
+
+  msg = ''
+
+  if (result):
+    msg = f'{proposer_name}は、成功した時の発言をします'
+  elif (not result and current_step == 3):
+    msg =  f'{proposer_name}は、失敗した時の発言をします'
+  else :
+    msg = f'{proposer_name}は、動揺した時の発言をします'
+
+
+  ## ChatGPT・Instance ##
+  llm = ChatOpenAI(
+      openai_api_key=openai_api_key,
+      model="gpt-4",
+      temperature=0.2,
+  )  
+
+  ## LLM に渡すための Messageを作成する
+  messages = [
+      SystemMessage(content=chara_setting), # System Message = AIの「キャラ設定」のようなもの 
+      HumanMessage(content=msg) # リアクションする内容
+  ]
+
+  response = llm(messages)
+
+  print(response)
+
+  return {
+    'result_msg': response,
+  }
+
+
+reaction_result = reaction(req)
+
+
+
+
+
+
+
+
+
+
 

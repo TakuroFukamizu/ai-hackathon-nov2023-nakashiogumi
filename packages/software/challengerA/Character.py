@@ -161,35 +161,104 @@ print('最終的に完成した・キャラクター設定')
 print(chara_setting)
 print('----------------------------------------------------')
 
-## 回答者から受け取る Parameter
-# 「 0 | 1 | 2 」のいずれか「失敗(最後だけ), 動揺(最後以外の失敗), 成功」
-judgment = 0
 
 
-## 質問 ##
-question_list = [
-    f'{target_name}のニックネームを考えて決定してください',
-    f'{target_name}とのデートプランを提案してください',
-    f'{target_name}に渡すプレゼントを提案してください',
-    f'{target_name}に告白してください',
-] 
+# main.pyから受け取る・DataSet Ver. Test
+req = {
+  'result': True, # True | False (reaction の時だけ欲しい)
+  'result_msg': 'ロボ玉が好き！！', # reaction の時だけ欲しい
+  'current_step': 0, # 0 〜 3 両方必要
+}
 
 
-## ChatGPT・Instance ##
-llm = ChatOpenAI(
-    openai_api_key=openai_api_key,
-    model="gpt-4",
-    temperature=0.2,
-)  
+## 提案する・Func
+def suggestion(reqest):
+
+  current_step = reqest['current_step']
+      
+  ## 質問 ##
+  question_list = [
+      f'{target_name}のニックネームを考えて決定してください',
+      f'{target_name}とのデートプランを提案してください',
+      f'{target_name}に渡すプレゼントを提案してください',
+      f'{target_name}に告白してください',
+  ] 
+
+  ## ChatGPT・Instance ##
+  llm = ChatOpenAI(
+      openai_api_key=openai_api_key,
+      model="gpt-4",
+      temperature=0.2,
+  )  
+
+  ## LLM に渡すための Messageを作成する
+  messages = [
+      SystemMessage(content=chara_setting), # System Message = AIの「キャラ設定」のようなもの 
+      HumanMessage(content=question_list[current_step]) # 提案する内容 
+  ]
+
+  response = llm(messages)
+
+  print(response)
+
+  return {
+    'result_msg': response,
+    'name': proposer_name,
+  }
 
 
-## LLM に渡すための Messageを作成する
-messages = [
-    SystemMessage(content=chara_setting), # System Message = AIの「キャラ設定」のようなもの 
-    HumanMessage(content=question_list[0]) # 質問内容 
-]
+suggestion_result = suggestion(req)
 
 
-response = llm(messages)
-print(response)
+## リアクションをする・Func 
+def reaction(reqest):
+
+  result = reqest['result']
+
+  current_step = reqest['current_step']
+
+  msg = ''
+
+  if (result):
+    msg = f'{proposer_name}は、成功した時の発言をします'
+  elif (not result and current_step == 3):
+    msg =  f'{proposer_name}は、失敗した時の発言をします'
+  else :
+    msg = f'{proposer_name}は、動揺した時の発言をします'
+
+
+  ## ChatGPT・Instance ##
+  llm = ChatOpenAI(
+      openai_api_key=openai_api_key,
+      model="gpt-4",
+      temperature=0.2,
+  )  
+
+  ## LLM に渡すための Messageを作成する
+  messages = [
+      SystemMessage(content=chara_setting), # System Message = AIの「キャラ設定」のようなもの 
+      HumanMessage(content=msg) # リアクションする内容
+  ]
+
+  response = llm(messages)
+
+  print(response)
+
+  return {
+    'result_msg': response,
+    'name': proposer_name,
+  }
+
+
+reaction_result = reaction(req)
+
+
+
+
+
+
+
+
+
+
 
