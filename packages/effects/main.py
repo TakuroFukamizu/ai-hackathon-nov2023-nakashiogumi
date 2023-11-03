@@ -16,10 +16,6 @@ def hello():
     return "Hello World!"
 
 @route('/challenger/<name>/', method='POST')
-async def vv_request_speech(text):
-    # ここに非同期での音声出力のコードを記述
-    print(text)  # 仮の出力
-    await asyncio.sleep(1)  # 音声出力にかかる時間を模擬
 
 async def handle_suggestion(current_step):
     # 各キャラクターからの提案を並行して取得
