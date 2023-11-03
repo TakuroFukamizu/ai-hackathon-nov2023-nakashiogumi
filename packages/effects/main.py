@@ -72,6 +72,8 @@ async def main():
             break  # 反応後にループ終了
 
     print("処理を終了します。")  # すべての処理が終わったことを出力
+    
+    # TODO: M5Stackに投げる
 
 if __name__ == '__main__':
     asyncio.run(main())
