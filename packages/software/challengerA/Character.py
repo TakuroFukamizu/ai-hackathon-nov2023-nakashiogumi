@@ -231,12 +231,17 @@ propose_training_data_text = f'''
 for value in propose_training_data:
   propose_training_data_text = f'{propose_training_data_text}\n * {value["input"]}'
 
-print('propose_training_data_text')
-print(propose_training_data_text)
-print('----------------------------------------------------')
+# print('propose_training_data_text')
+# print(propose_training_data_text)
+# print('----------------------------------------------------')
 
 # 結合する
 chara_setting = f'{chara_setting}\n * {propose_training_data_text}'
+
+
+# print('最終的に完成した・キャラクター設定')
+# print(chara_setting)
+# print('----------------------------------------------------')
 
 
 # main.pyから受け取る・DataSet Ver. Test
@@ -335,7 +340,6 @@ def reaction(req):
 
 # Test実行用・Call
 # reaction_result = reaction(req)
-
 
 
 # ## 提案する・Func

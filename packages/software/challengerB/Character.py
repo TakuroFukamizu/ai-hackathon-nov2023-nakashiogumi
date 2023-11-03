@@ -224,11 +224,9 @@ for value in propose_training_data:
 chara_setting = f'{chara_setting}\n * {propose_training_data_text}'
 
 
-print('最終的に完成した・キャラクター設定')
-print(chara_setting)
-print('----------------------------------------------------')
-
-
+# print('最終的に完成した・キャラクター設定')
+# print(chara_setting)
+# print('----------------------------------------------------')
 
 # main.pyから受け取る・DataSet Ver. Test
 req = {
