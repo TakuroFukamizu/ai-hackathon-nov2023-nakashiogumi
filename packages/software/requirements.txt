@@ -1,3 +1,6 @@
 openai
-dotenv
+python-dotenv
 langchain
+bottle
+requests
+simpleaudio
