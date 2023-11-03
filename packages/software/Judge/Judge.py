@@ -70,10 +70,13 @@ question_list = [
 ### 判断をする処理関数 ###
 def judgment(request):
 
-    # 引数から回答を取得
-    proposer_A_answer = request[0]['message']
-    proposer_B_answer = request[1]['message']
-
+    # 引数から回答を整理（）
+    if request[0]['fromType'] == 'A':
+        proposer_A_answer = request[0]['message']
+        proposer_B_answer = request[1]['message']
+    else: proposer_A_answer = request[1]['message']
+    proposer_B_answer = request[0]['message']
+    
     # llmに渡す際のsystem側の設定を整理
     #ベース設定
     chara_setting = f'''
@@ -134,26 +137,26 @@ def judgment(request):
 
     if response:
         response2 = llm(messages2)
-        print("response2")
-        print(response2)
-
+        print("response2.content")
+        print(response2.content)
+       
     if response and response2:
         return {
             'result': result, 
-            'result_msg': response2,
+            'result_msg': response2.content,
             'current_step': request[0]['current_step'], 
         }
 
 # main.pyから受け取る・DataSet Ver. Test
-req =[{
-        'message': '西村博之のニックネームは「ハッキー」です。',
-        'current_step': 0,
-        'fromType': 'A' 
-    },
+req =[
     {
         'message': '西村博之のニックネームは「ひろ」です。',
         'current_step': 0,
         'fromType': 'B' 
+    },{
+        'message': '西村博之のニックネームは「ハッキー」です。',
+        'current_step': 0,
+        'fromType': 'A' 
     }]
 
 judgment_result = judgment(req)
