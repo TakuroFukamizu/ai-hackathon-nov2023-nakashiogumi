@@ -4,7 +4,7 @@ import simpleaudio
 
 url = "http://localhost:50021"
 
-def vv_resuqest_speach(text):
+def vv_request_speech(text):
     endoced_text = urllib.parse.quote(text)
     query = requests.post(url + "/audio_query?speaker=1&"+endoced_text) # get query json
     audio_data = requests.post(url + "/synthesis", data=query) # get audio data

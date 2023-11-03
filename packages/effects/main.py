@@ -1,9 +1,10 @@
+from aiohttp import web
 import asyncio
 from bottle import route, run, request, post
 import requests
 import json
 import time, threading
-from .libs.voicebox import vv_resuqest_speach
+from .libs.voicebox import vv_request_speech
 import concurrent.futures
 from packages.software.challengerA.Character import suggestion as suggestionA #CharactorAの提案
 from packages.software.challengerA.Character import reaction as reactionA #CharactorAのリアクション
@@ -11,11 +12,10 @@ from packages.software.challengerB.Character import suggestion as suggestionB #C
 from packages.software.challengerB.Character import reaction as reactionB #CharactorBのリアクション
 from packages.software.fileC import hogehoge  # 判定結果とメッセージを返却するロジック
 
-@route('/hello')
-def hello():
-    return "Hello World!"
+async def hello(request):
+    return web.Response(text="Hello World!")
 
-@route('/challenger/<name>/', method='POST')
+# @route('/challenger/<name>/', method='POST')
 
 async def handle_suggestion(current_step):
     # 各キャラクターからの提案を並行して取得
@@ -74,6 +74,19 @@ async def main():
     print("処理を終了します。")  # すべての処理が終わったことを出力
     
     # TODO: M5Stackに投げる
+    
+async def start_background_tasks(app):
+    app['main_logic'] = asyncio.create_task(main_logic())
+
+async def cleanup_background_tasks(app):
+    app['main_logic'].cancel()
+    await app['main_logic']
+    
+
+app = web.Application()
+app.add_routes([web.get('/hello', hello)])
+app.on_startup.append(start_background_tasks)
+app.on_cleanup.append(cleanup_background_tasks)
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    web.run_app(app, host='localhost', port=8080)
