@@ -4,25 +4,16 @@ from bottle import route, run, request, post
 import requests
 import json
 import time, threading
-# from .libs.voicebox import vv_request_speech
 import concurrent.futures
-from packages.software.challengerA.Character import suggestion as suggestionA
-from packages.software.challengerA.Character import reaction as reactionA
-from packages.software.challengerB.Character import suggestion as suggestionB
-from packages.software.challengerB.Character import reaction as reactionB
-from packages.software.Judge import judgment
-# from packages.effects.libs.voicebox import vv_request_speech
-# from packages.software.fileC import hogehoge  # 判定結果とメッセージを返却するロジック
-
-# async def judgement(request):
-#     response = {
-#         'result': [True, False],
-#         'result_msg': 'ロボ玉が好き！！',
-#         'current_step': 2,  # ここは0~3の間で適切な値を設定してください
-#     }
-#     return web.Response(response)
+import challengerA
+import challengerB
+from Judge import judgment
 
 # @route('/challenger/<name>/', method='POST')
+
+# NOTE: 音声featch path param:特定キャラの名前、 body param:text
+# NOTE: judgmentのfetch対象になる予定
+
 
 async def handle_suggestion(current_step):
     # 各キャラクターからの提案を並行して取得
@@ -52,9 +43,9 @@ async def handle_suggestion(current_step):
 
 async def handle_reaction(character, current_step):
     if character == 'A':
-        response = await reactionA({'current_step': current_step})
+        response = await challengerA.Character.reaction({'current_step': current_step})
     else:
-        response = await reactionB({'current_step': current_step})
+        response = await challengerB.Character.reaction({'current_step': current_step})
 
     # 反応を音声出力
     # await vv_request_speech(response['result_msg'])

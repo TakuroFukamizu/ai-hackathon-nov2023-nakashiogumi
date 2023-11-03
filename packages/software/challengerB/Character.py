@@ -20,12 +20,13 @@ import pprint
 import dotenv
 import os
 import sys
+from pathlib import Path
 
 ## 環境変数 ## 
 dotenv.load_dotenv('.env')
 
 # 1. Project・Root Path
-project_root = os.path.abspath("../../../")
+project_root = os.path.abspath("../../")
 # print(project_root)
 
 
@@ -236,6 +237,7 @@ def reaction(req):
   llm = ChatOpenAI(
       openai_api_key=openai_api_key,
       model="gpt-4",
+      # model="gpt-3.5-turbo",
       temperature=0.2,
   )  
 

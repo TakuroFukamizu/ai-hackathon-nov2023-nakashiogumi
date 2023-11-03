@@ -35,7 +35,7 @@ from langchain.vectorstores import FAISS
 dotenv.load_dotenv('.env')
 
 # 1. Project・Root Path
-project_root = os.path.abspath("../../../")
+project_root = os.path.abspath("../../")
 # print(project_root)
 
 
@@ -262,7 +262,8 @@ def suggestion(reqest):
   ## ChatGPT・Instance ##
   llm = ChatOpenAI(
       openai_api_key=openai_api_key,
-      model="gpt-4",
+      model="gpt-3.5-turbo",
+      # model="gpt-4",
       temperature=0.2,
   )
 
@@ -366,6 +367,7 @@ def reaction(req):
   llm = ChatOpenAI(
       openai_api_key=openai_api_key,
       model="gpt-4",
+      # model="gpt-3.5-turbo",
       temperature=0.2,
   )  
 
