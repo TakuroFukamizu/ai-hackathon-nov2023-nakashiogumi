@@ -46,11 +46,11 @@ router.post('/select/:id', async (req, res, next) => {
                 break;
         }
 
-        res.setStatus(200);
+        res.status(200);
         res.send();
     } catch (error) { 
         console.error("error", error); 
-        res.setStatus(500);
+        res.status(500);
         res.send();
     } 
 });
