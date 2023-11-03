@@ -6,6 +6,13 @@
 #define NUM_LEDS 121 // 35*3+8*2
 #define PIN_LEDS 25
 
+#define EFFECT_MODE_NONE 0
+#define EFFECT_MODE_C1_SPK 1
+#define EFFECT_MODE_C2_SPK 2
+#define EFFECT_MODE_JUDGE_INPROGRESS 3
+#define EFFECT_MODE_C1_WIN 4
+#define EFFECT_MODE_C2_WIN 5
+
 CRGB leds[NUM_LEDS];
 
 int textsize = 3;
@@ -19,6 +26,7 @@ uint8_t effectMode = 4;
 4: judge selected challenger1
 5: judge selected challenger2
 */
+uint8_t prevEffectMode = effectMode;
 
 uint8_t challenger1CircleIndex = 0; // 0..34
 uint8_t challenger1BarIndex = 42; // 42..35
@@ -30,8 +38,8 @@ uint8_t blinkToggle = 0;
 void turnOffAll();
 void ledTest();
 void setIndexsToStart();
-void challenger1WinStart();
-void challenger1WinRun();
+void challenger1Win();
+void challenger2Win();
 
 void setup() { 
     Serial.begin(115200);
@@ -50,7 +58,6 @@ void setup() {
     ledTest();
 
     Serial.println("boot ok");
-    challenger1WinStart();
 }
 /*
 LED Mapping
@@ -75,11 +82,11 @@ void loop() {
         case 3: // judge thinking
             break;
         case 4: // judge selected challenger1
-            challenger1WinRun();
+            challenger1Win();
             break;
         case 5: // judge selected challenger2
+            challenger2Win();
             break;
-
     }
     delay(30);
 }
@@ -127,7 +134,7 @@ void ledTest() {
     delay(500);
     // ----
     turnOffAll();
-    // Challenger1 Circle 
+    // Challenger2 Circle 
     for(int e=86;e<121;e++) {
         leds[e] = CRGB::Blue; // current
     }
@@ -148,13 +155,13 @@ void setIndexsToStart()
     challenger2CircleIndex = 86; // 86..120
 }
 
-void challenger1WinStart()
-{
-    turnOffAll(); // clear all
-    setIndexsToStart(); // clear all index
-    blinkToggle = 0;
-}
-void challenger1WinRun() {
+void challenger1Win() {
+    if (prevEffectMode != EFFECT_MODE_C1_WIN) {
+        turnOffAll(); // clear all
+        setIndexsToStart(); // clear all index
+        blinkToggle = 0;
+        prevEffectMode = effectMode;
+    }
     // Judge Circle
     for(int c=43;c<78;c++) {
         if (blinkToggle==0) {
@@ -184,6 +191,47 @@ void challenger1WinRun() {
     challenger1BarIndex--; // 42..35
     if (challenger1BarIndex<35) {
         challenger1BarIndex = 42;
+    }
+    FastLED.show();
+    delay(100);
+}
+
+void challenger2Win() {
+    if (prevEffectMode != EFFECT_MODE_C2_WIN) {
+        turnOffAll(); // clear all
+        setIndexsToStart(); // clear all index
+        blinkToggle = 0;
+        prevEffectMode = effectMode;
+    }
+    // Judge Circle
+    for(int c=43;c<78;c++) {
+        if (blinkToggle==0) {
+            leds[c] = CRGB::Green;
+        } else {
+            leds[c] = CRGB::Black;
+        }
+    }
+    // Challenger2 Circle 
+    for(int e=86;e<121;e++) {
+        if (blinkToggle==0) {
+            leds[e] = CRGB::Green;
+        } else {
+            leds[e] = CRGB::Black;
+        }
+    }
+    blinkToggle++;
+    if (blinkToggle>1) {
+        blinkToggle = 0;
+    }
+    // ----
+    // Challenger2 Bar
+    for(int d=78;d<86;d++) {
+        leds[d] = CRGB::Black; // clear all
+    }
+    leds[challenger2BarIndex] = CRGB::White;
+    challenger2BarIndex++; // 78..85
+    if (challenger2BarIndex>85) {
+        challenger2BarIndex = 78;
     }
     FastLED.show();
     delay(100);
