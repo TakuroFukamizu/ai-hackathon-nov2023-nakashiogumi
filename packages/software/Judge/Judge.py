@@ -159,10 +159,11 @@ req =[
         'fromType': 'A' 
     }]
 
-judgment_result = judgment(req)
+# Test実行用・Call
+# judgment_result = judgment(req)
 
-print("judgment_result")
-print(judgment_result)
+# print("judgment_result")
+# print(judgment_result)
 
 
 

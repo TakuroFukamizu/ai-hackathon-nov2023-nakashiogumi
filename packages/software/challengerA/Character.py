@@ -275,14 +275,15 @@ def suggestion(reqest):
 
   response = llm(messages)
 
-  print(response)
+  # print(response)
 
   return {
     'result_msg': response,
     'name': proposer_name,
   }
 
-suggestion_result = suggestion(req)
+# Test実行用・Call
+# suggestion_result = suggestion(req)
 
 
 
@@ -325,14 +326,14 @@ def reaction(req):
 
   response = llm(messages)
 
-  print(response)
+  # print(response)
 
   return {
     'result_msg': response,
     'name': proposer_name,
   }
 
-
+# Test実行用・Call
 # reaction_result = reaction(req)
 
 

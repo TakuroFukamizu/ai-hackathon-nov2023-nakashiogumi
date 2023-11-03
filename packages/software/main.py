@@ -7,14 +7,14 @@ import time, threading
 import concurrent.futures
 import challengerA
 import challengerB
-from Judge import judgment
+import Judge
 
 # @route('/challenger/<name>/', method='POST')
 
 # NOTE: 音声featch path param:特定キャラの名前、 body param:text
 # NOTE: judgmentのfetch対象になる予定
 
-
+# 
 async def handle_suggestion(current_step):
     # 各キャラクターからの提案を並行して取得
     suggestion_results = await asyncio.gather(
@@ -25,7 +25,7 @@ async def handle_suggestion(current_step):
     # 提案結果をjudgmentに送り判定を受け取る
     suggestions = [{'message': res['result_msg'], 'current_step': current_step, 'fromType': 'A' if i == 0 else 'B'}
                    for i, res in enumerate(suggestion_results)]
-    judgeResult = judgment(suggestions)
+    judgeResult = Judge.judgment(suggestions)
 
     # 判定結果を音声出力
     # await vv_request_speech(judgeResult['result_msg'])
