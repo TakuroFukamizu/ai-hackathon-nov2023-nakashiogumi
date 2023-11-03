@@ -35,7 +35,7 @@ openai_api_key = dotenv.get_key(f'{project_root}/.env', 'OPENAI_KEY')
 
 ## JSONファイルを読み込む & Parseする ##
 
-# 1. 提案する側のキャラクター
+# 1. 提案する側のキャラクター Ver. Giorno
 chara_json_file = open(f'{project_root}/dataset/proposer/giorno.json', 'r', encoding="utf-8")
 proposer_chara_data = json.load(chara_json_file)
 
@@ -154,7 +154,7 @@ print('----------------------------------------------------')
 
 
 # 結合する
-chara_setting = f'{chara_setting}\n * {featuresList}'
+chara_setting = f'{chara_setting}\n * {features}'
 
 
 print('最終的に完成した・キャラクター設定')
@@ -166,7 +166,7 @@ print('----------------------------------------------------')
 # main.pyから受け取る・DataSet Ver. Test
 req = {
   'result': True, # True | False (reaction の時だけ欲しい)
-  'result_msg': 'ロボ玉が好き！！', # reaction の時だけ欲しい
+  'result_msg': 'ロボ玉が好き！！', # 回答する人の Msg (reaction の時だけ欲しい)
   'current_step': 0, # 0 〜 3 両方必要
 }
 
@@ -211,20 +211,26 @@ suggestion_result = suggestion(req)
 
 
 ## リアクションをする・Func 
-def reaction(reqest):
+def reaction(req):
 
-  result = reqest['result']
+  # 進行中の Step
+  current_step = req['current_step']
+  
+  # 成功/失敗 (True/False) 
+  result = req['result']
 
-  current_step = reqest['current_step']
+  # 反応・Msg
+  result_msg = req['result_msg']
 
+  # 成功 | 失敗 | 動揺 の 3-Type のどれか
   msg = ''
 
   if (result):
-    msg = f'{proposer_name}は、成功した時の発言をします'
+    msg = f'{proposer_name}は、{target_name}の{result_msg}に対して、成功した時の発言をします'
   elif (not result and current_step == 3):
-    msg =  f'{proposer_name}は、失敗した時の発言をします'
+   msg = f'{proposer_name}は、{target_name}の{result_msg}に対して、失敗した時の発言をします'
   else :
-    msg = f'{proposer_name}は、動揺した時の発言をします'
+    msg = f'{proposer_name}は、{target_name}の{result_msg}に対して、動揺した時の発言をします'
 
 
   ## ChatGPT・Instance ##
