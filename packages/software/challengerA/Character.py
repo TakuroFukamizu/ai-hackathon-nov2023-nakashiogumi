@@ -336,6 +336,7 @@ def reaction(req):
   return {
     'result_msg': response,
     'name': proposer_name,
+    'fromType': 'A'
   }
 
 # Test実行用・Call
