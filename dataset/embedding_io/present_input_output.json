@@ -1,0 +1,401 @@
+[
+  {
+    "input": "ハートのネックレスをプレゼントする",
+    "output": [
+      {
+        "type": "happy",
+        "response": "こんな素敵なネックレスをもらえて、嬉しい！！ありがとう"
+      },
+      {
+        "type": "indifferent",
+        "response": "ネックレスか...。ありがとう、でもジュエリーはそんなにつけないんだよね。"
+      },
+      {
+        "type": "disappointed",
+        "response": "あら、またネックレス？前にもらったのと似てるわね..."
+      },
+      {
+        "type": "annoyed",
+        "response": "また物で釣ろうとして...自分の気持ちが欲しいのに。"
+      }
+    ]
+  },
+  {
+    "input": "手作りのケーキを作ってサプライズ",
+    "output": [
+      {
+        "type": "happy",
+        "response": "手作りケーキなんて、感動した！すごく美味しいよ。"
+      },
+      {
+        "type": "indifferent",
+        "response": "ケーキか。まあ、食べ物はいつでもいいけどね。"
+      },
+      {
+        "type": "disappointed",
+        "response": "作ってくれたのは嬉しいけど、ケーキはちょっとダイエット中だったの..."
+      },
+      {
+        "type": "annoyed",
+        "response": "いきなりケーキ持ってきて、部屋がベタベタするじゃない..."
+      }
+    ]
+  },
+  {
+    "input": "好きなバンドのライブチケットをプレゼントする",
+    "output": [
+      {
+        "type": "happy",
+        "response": "ライブに行けるなんて、最高のプレゼントだよ！"
+      },
+      {
+        "type": "indifferent",
+        "response": "ライブチケット？音楽はいいけど、人混みは苦手なんだよね。"
+      },
+      {
+        "type": "disappointed",
+        "response": "その日は他の予定があって...でも、チケットはありがたいよ。"
+      },
+      {
+        "type": "annoyed",
+        "response": "なんで私が好きなバンド知らないの？これ、全然興味ないやつだけど..."
+      }
+    ]
+  },
+  {
+    "input": "新しい趣味を始められるように関連グッズをプレゼントする",
+    "output": [
+      {
+        "type": "happy",
+        "response": "新しい趣味を一緒に楽しめるなんて、最高だね！ありがとう！"
+      },
+      {
+        "type": "indifferent",
+        "response": "趣味のグッズ、これが流行ってるの？まあ、時間があったらやってみるかな。"
+      },
+      {
+        "type": "disappointed",
+        "response": "これ、初心者にはちょっと難しいかも...でも、考えてくれてありがとう。"
+      },
+      {
+        "type": "annoyed",
+        "response": "急に新しい趣味を押し付けないでよ。私が何をしたいか、聞いてくれてる？"
+      }
+    ]
+  },
+  {
+    "input": "お揃いのペアリングを渡す",
+    "output": [
+      {
+        "type": "happy",
+        "response": "お揃いのリングなんて、すごくロマンチック！大切にするね。"
+      },
+      {
+        "type": "indifferent",
+        "response": "ペアリングね。これで私たちがカップルだって皆にアピールするのね。"
+      },
+      {
+        "type": "disappointed",
+        "response": "リングはありがたいけど、ちょっとデザインが子供っぽくない？"
+      },
+      {
+        "type": "annoyed",
+        "response": "私たちの関係をリングで示さなくてもいいのに...。"
+      }
+    ]
+  },
+  {
+    "input": "サプライズで海外旅行のチケットをプレゼントする",
+    "output": [
+      {
+        "type": "happy",
+        "response": "海外旅行のチケット！？これは本当に素晴らしいサプライズだわ！ありがとう！"
+      },
+      {
+        "type": "indifferent",
+        "response": "海外か...急にどうしたの？予定があるからちょっと困るかも。"
+      },
+      {
+        "type": "disappointed",
+        "response": "旅行はいいけど、こんなに急なのはちょっと...事前に相談してほしかったな。"
+      },
+      {
+        "type": "annoyed",
+        "response": "いきなり過ぎ！私の予定も考えてよ！"
+      }
+    ]
+  },
+  {
+    "input": "お互いの手形をアートにしてプレゼント",
+    "output": [
+      {
+        "type": "happy",
+        "response": "二人の手形でアートを作るなんて、ユニークで心が温まるわね！"
+      },
+      {
+        "type": "indifferent",
+        "response": "手形のアートか...斬新ね。でもどこに飾ろう？"
+      },
+      {
+        "type": "disappointed",
+        "response": "これ、部屋に合うかな？ちょっと子供っぽくない？"
+      },
+      {
+        "type": "annoyed",
+        "response": "まさか手形...これで私たちが幼稚園児か何かと勘違いされたらどうするの？"
+      }
+    ]
+  },
+  {
+    "input": "一緒に星を見に行く約束をプレゼント",
+    "output": [
+      {
+        "type": "happy",
+        "response": "星を見に行くの？ロマンチックで素敵なアイデアね、楽しみにしてるわ！"
+      },
+      {
+        "type": "indifferent",
+        "response": "星か...天気がいいといいね。"
+      },
+      {
+        "type": "disappointed",
+        "response": "星を見る約束って...もう少し現実的なプレゼントはなかったの？"
+      },
+      {
+        "type": "annoyed",
+        "response": "約束ごとをプレゼントにするなんて、ちょっと安易すぎない？"
+      }
+    ]
+  },
+  {
+    "input": "愛用していた物を修理してプレゼントする",
+    "output": [
+      {
+        "type": "happy",
+        "response": "大切にしてたものを修理してくれたの？これは心から感謝するわ！"
+      },
+      {
+        "type": "indifferent",
+        "response": "修理してくれたんだ。ありがたいけど、新しいのも欲しかったかな。"
+      },
+      {
+        "type": "disappointed",
+        "response": "これ、もう古いから新しいのに変えようと思ってたのに..."
+      },
+      {
+        "type": "annoyed",
+        "response": "壊れたものを直して...そんなに予算なかったの？"
+      }
+    ]
+  },
+  {
+    "input": "大切な記念日にサプライズメッセージをプレゼントする",
+    "output": [
+      {
+        "type": "happy",
+        "response": "こんなに心のこもったメッセージをありがとう！記念日がさらに特別なものになったわ。"
+      },
+      {
+        "type": "indifferent",
+        "response": "サプライズメッセージね。ありがとう。ちょっと恥ずかしいけど..."
+      },
+      {
+        "type": "disappointed",
+        "response": "メッセージだけ？もう少し何かあるかと思ったんだけどなあ。"
+      },
+      {
+        "type": "annoyed",
+        "response": "文字だけのサプライズ？もう少し考えてよね。"
+      }
+    ]
+  },
+  {
+    "input": "花束をサプライズで贈る",
+    "output": [
+      {
+        "type": "happy",
+        "response": "サプライズでこんなに美しい花束を！本当にうれしい！"
+      },
+      {
+        "type": "indifferent",
+        "response": "花束か。綺麗だね。ありがとう。"
+      },
+      {
+        "type": "disappointed",
+        "response": "また花？もう少しクリエイティブなものがよかったな。"
+      },
+      {
+        "type": "annoyed",
+        "response": "いつも花ばかり...新しいアイデアはなかったの？"
+      }
+    ]
+  },
+  {
+    "input": "手紙を書いて感謝の気持ちを伝える",
+    "output": [
+      {
+        "type": "happy",
+        "response": "手紙で気持ちを伝えてくれるなんて、とってもロマンチック！"
+      },
+      {
+        "type": "indifferent",
+        "response": "手紙？珍しいわね。まあ、気持ちは嬉しいけど。"
+      },
+      {
+        "type": "disappointed",
+        "response": "手紙だけかい。もう少し何か欲しかったなあ。"
+      },
+      {
+        "type": "annoyed",
+        "response": "なんでいつもこんなに古風なの？もっと現代的なサプライズは？"
+      }
+    ]
+  },
+  {
+    "input": "手編みのマフラーをプレゼントする",
+    "output": [
+      {
+        "type": "happy",
+        "response": "手編みのマフラー！どれだけ時間をかけたの？愛情を感じるわ。"
+      },
+      {
+        "type": "indifferent",
+        "response": "手編みね...暖かそう。ありがとう。"
+      },
+      {
+        "type": "disappointed",
+        "response": "マフラー...自分で選びたかったかな。"
+      },
+      {
+        "type": "annoyed",
+        "response": "自分で編んだっていうのはわかるけど、趣味が合わないのよね。"
+      }
+    ]
+  },
+  {
+    "input": "新刊の本をプレゼントする",
+    "output": [
+      {
+        "type": "happy",
+        "response": "新刊をありがとう！読むのが楽しみ！"
+      },
+      {
+        "type": "indifferent",
+        "response": "本か。ありがとね。でも、図書館で借りればよかったかな。"
+      },
+      {
+        "type": "disappointed",
+        "response": "本...このシリーズあんまり好きじゃなかったのよね。"
+      },
+      {
+        "type": "annoyed",
+        "response": "いつも本ばかり...他にアイディアはなかったの？"
+      }
+    ]
+  },
+  {
+    "input": "共通の趣味のアイテムをプレゼントする",
+    "output": [
+      {
+        "type": "happy",
+        "response": "これ、ずっと欲しかったやつ！二人で使えるなんて、もっと楽しくなりそう！"
+      },
+      {
+        "type": "indifferent",
+        "response": "趣味のアイテムね。これで一緒に遊べるね。ありがと。"
+      },
+      {
+        "type": "disappointed",
+        "response": "また趣味のもの？たまには違う種類のプレゼントがほしいな。"
+      },
+      {
+        "type": "annoyed",
+        "response": "いつも趣味のものだけ...他にも世界は広いんだから。"
+      }
+    ]
+  },
+  {
+    "input": "オーダーメイドのジュエリーボックスをプレゼントする",
+    "output": [
+      {
+        "type": "happy",
+        "response": "私だけのためのジュエリーボックスなんて！すごく特別な気分！"
+      },
+      {
+        "type": "indifferent",
+        "response": "オーダーメイドか。素敵だけど、私の趣味を理解してくれてる？"
+      },
+      {
+        "type": "disappointed",
+        "response": "え、ジュエリーボックス？ジュエリーの方がよかったかも..."
+      },
+      {
+        "type": "annoyed",
+        "response": "ボックスはいいけど、中身のジュエリーはどうしたの？"
+      }
+    ]
+  },
+  {
+    "input": "新刊の本をプレゼントする",
+    "output": [
+      {
+        "type": "happy",
+        "response": "新刊をありがとう！読むのが楽しみ！"
+      },
+      {
+        "type": "indifferent",
+        "response": "本か。ありがとね。でも、図書館で借りればよかったかな。"
+      },
+      {
+        "type": "disappointed",
+        "response": "本...このシリーズあんまり好きじゃなかったのよね。"
+      },
+      {
+        "type": "annoyed",
+        "response": "いつも本ばかり...他にアイディアはなかったの？"
+      }
+    ]
+  },
+  {
+    "input": "共通の趣味のアイテムをプレゼントする",
+    "output": [
+      {
+        "type": "happy",
+        "response": "これ、ずっと欲しかったやつ！二人で使えるなんて、もっと楽しくなりそう！"
+      },
+      {
+        "type": "indifferent",
+        "response": "趣味のアイテムね。これで一緒に遊べるね。ありがと。"
+      },
+      {
+        "type": "disappointed",
+        "response": "また趣味のもの？たまには違う種類のプレゼントがほしいな。"
+      },
+      {
+        "type": "annoyed",
+        "response": "いつも趣味のものだけ...他にも世界は広いんだから。"
+      }
+    ]
+  },
+  {
+    "input": "オーダーメイドのジュエリーボックスをプレゼントする",
+    "output": [
+      {
+        "type": "happy",
+        "response": "私だけのためのジュエリーボックスなんて！すごく特別な気分！"
+      },
+      {
+        "type": "indifferent",
+        "response": "オーダーメイドか。素敵だけど、私の趣味を理解してくれてる？"
+      },
+      {
+        "type": "disappointed",
+        "response": "え、ジュエリーボックス？ジュエリーの方がよかったかも..."
+      },
+      {
+        "type": "annoyed",
+        "response": "ボックスはいいけど、中身のジュエリーはどうしたの？"
+      }
+    ]
+  }
+]

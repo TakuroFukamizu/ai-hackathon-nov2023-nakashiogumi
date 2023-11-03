@@ -1,0 +1,149 @@
+[
+  {
+    "input": "映画館で最新の映画を見に行こう",
+    "output": [
+      {
+        "type": "happy",
+        "response": "映画大好き！どんな映画かな？すごく楽しみ！"
+      },
+      {
+        "type": "indifferent",
+        "response": "映画かぁ、まぁたまにはいいかもね。"
+      },
+      {
+        "type": "disappointed",
+        "response": "また映画？ちょっと飽きてきたかも…。"
+      },
+      {
+        "type": "annoyed",
+        "response": "いつも映画ばかり…他に何かないの？"
+      }
+    ]
+  },
+  {
+    "input": "週末にハイキングに行かない？",
+    "output": [
+      {
+        "type": "happy",
+        "response": "ハイキング、いいね！自然の中でリフレッシュできるね！"
+      },
+      {
+        "type": "indifferent",
+        "response": "ハイキングね。天気が良ければいいけど…。"
+      },
+      {
+        "type": "disappointed",
+        "response": "ハイキング？体力自信ないんだよね…。"
+      },
+      {
+        "type": "annoyed",
+        "response": "いつもアクティブすぎるんだよ…たまにはゆっくりしたい。"
+      }
+    ]
+  },
+  {
+    "input": "美術館で開催中の展覧会を見に行こうよ",
+    "output": [
+      {
+        "type": "happy",
+        "response": "美術館が大好き！どんな展覧会かな？ワクワクする！"
+      },
+      {
+        "type": "indifferent",
+        "response": "展覧会ね、芸術はちょっとわかりづらいかも…。"
+      },
+      {
+        "type": "disappointed",
+        "response": "美術館は静かすぎるし、ちょっと退屈かも…。"
+      },
+      {
+        "type": "annoyed",
+        "response": "またお堅いところか…もっと楽しいところはないの？"
+      }
+    ]
+  },
+  {
+    "input": "一緒に料理教室に参加しようよ",
+    "output": [
+      {
+        "type": "happy",
+        "response": "料理教室いいね！二人で上手にできるかな？楽しそう！"
+      },
+      {
+        "type": "indifferent",
+        "response": "料理かぁ…まぁ、新しいことを学ぶのも悪くないね。"
+      },
+      {
+        "type": "disappointed",
+        "response": "料理教室って…私、料理苦手なの忘れてない？"
+      },
+      {
+        "type": "annoyed",
+        "response": "どうしていつもこういうプランばかり考えるの？"
+      }
+    ]
+  },
+  {
+    "input": "金曜の夜、ジャズバーに行こうよ",
+    "output": [
+      {
+        "type": "happy",
+        "response": "ジャズバー、素敵！音楽聴きながらゆっくりできそう！"
+      },
+      {
+        "type": "indifferent",
+        "response": "ジャズはあんまり聴かないけど…新鮮かもね。"
+      },
+      {
+        "type": "disappointed",
+        "response": "ジャズバーって雰囲気重視すぎない？もっとカジュアルなところがいいな。"
+      },
+      {
+        "type": "annoyed",
+        "response": "うーん、ジャズはちょっと…。他に楽しいところないの？"
+      }
+    ]
+  },
+  {
+    "input": "今度の週末、一緒にビーチに行こうよ",
+    "output": [
+      {
+        "type": "happy",
+        "response": "ビーチ最高！太陽と海のコンビネーションが待ち遠しい！"
+      },
+      {
+        "type": "indifferent",
+        "response": "ビーチかぁ、天気がいいといいけどね。"
+      },
+      {
+        "type": "disappointed",
+        "response": "ビーチは…ちょっと日焼けが気になるかも。"
+      },
+      {
+        "type": "annoyed",
+        "response": "毎回外ばかりじゃなくて、たまには家で過ごすのもいいと思わない？"
+      }
+    ]
+  },
+  {
+    "input": "来週のコンサートに一緒に行こう！",
+    "output": [
+      {
+        "type": "happy",
+        "response": "コンサート？いいね！どのアーティスト？もうワクワクする！"
+      },
+      {
+        "type": "indifferent",
+        "response": "コンサートね…人多そうだけど、楽しめるかな。"
+      },
+      {
+        "type": "disappointed",
+        "response": "コンサート、音が大きすぎて疲れちゃうかも…。"
+      },
+      {
+        "type": "annoyed",
+        "response": "いつもうるさいところばかり…もう少し静かなデートはどう？"
+      }
+    ]
+  }
+]
