@@ -19,6 +19,56 @@ launch server
 yarn run start
 ```
 
+## API
+
+| Method |         Path          |                     Description                      |
+| ------ | --------------------- | ---------------------------------------------------- |
+| POST   | /challenger/:id/speak | チャレンジャーA,Bが発話する際に呼び出す              |
+| POST   | /judge/speak          | ジャッジが発話する際に呼び出す                       |
+| POST   | /judge/select/:id     | ジャッジがチャレンジャーAまたはBを選んだ際に呼び出す |
+| POST   | /session/reset        | 演出をクリアする                                     |
+
+### POST /challenger/:id/speak
+
+- Path parameters
+    - `id`: a または b
+- Post Body(`Content-Type: application/x-www-form-urlencoded`)
+    - `text`: 発話内容
+    - `name`: チャレンジャー名
+
+発話内容の音声データを生成して再生し、LED演出を行う。
+再生が終わったらレスポンスする。
+
+### POST /judge/speak
+
+- Path parameters
+    - 無し
+- Post Body(`Content-Type: application/x-www-form-urlencoded`)
+    - `text`: 発話内容
+
+発話内容の音声データを生成して再生し、LED演出を行う。
+再生が終わったらレスポンスする。
+
+### POST /judge/select/:id
+
+- Path parameters
+    - `id`: a または b
+- Post Body(`Content-Type: application/x-www-form-urlencoded`)
+    - なし
+
+チャレンジャー選択時のLED演出を行う。
+LED演出は `/session/reset` を呼び出すまで継続する。
+
+### POST /session/reset 
+
+- Path parameters
+    - なし
+- Post Body(`Content-Type: application/x-www-form-urlencoded`)
+    - なし
+
+LED演出を終了する。
+
+
 ## Voicevox Style ID
 
 |    キャラクター名    |     Style      | ID  |

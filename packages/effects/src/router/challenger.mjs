@@ -2,9 +2,10 @@ import express from 'express';
 
 const router = express.Router();
 
-router.post('challenger/:name/speak', async (req, res, next) => {
+router.post('/:id/speak', async (req, res, next) => {
     console.log(req);
     try { 
+        // NOTE: nameの値に応じてspeakerIdを変更する場合はここで実装
         const text = "これはnodeから呼び出すテストの２回目なのだ";
         const speakerId = 3;
     
