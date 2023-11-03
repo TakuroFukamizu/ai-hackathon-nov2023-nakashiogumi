@@ -18,8 +18,8 @@ import Judge
 async def handle_suggestion(current_step):
     # 各キャラクターからの提案を並行して取得
     suggestion_results = await asyncio.gather(
-        suggestionA({'current_step': current_step}),
-        suggestionB({'current_step': current_step})
+        challengerA.Character.suggestion({'current_step': current_step}), 
+        challengerB.Character.suggestion({'current_step': current_step}),
     )
 
     # 提案結果をjudgmentに送り判定を受け取る
