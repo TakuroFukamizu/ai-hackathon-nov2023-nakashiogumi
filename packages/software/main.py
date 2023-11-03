@@ -25,10 +25,14 @@ async def handle_suggestion(current_step):
     # 提案結果をjudgmentに送り判定を受け取る
     suggestions = [{'message': res['result_msg'], 'current_step': current_step, 'fromType': 'A' if i == 0 else 'B'}
                    for i, res in enumerate(suggestion_results)]
-    judgeResult = Judge.judgment(suggestions)
+    judgeResult = Judge.Judge.judgment(suggestions)
 
     # 判定結果を音声出力
+    payload = {'text': judgeResult['result_msg']}
+    # NOTE: 以下は参照にあたってeffects/libs直下を立ち上げておく必要あり。音声出力完了を待つため、timeoutは3分とする
+    r = await requests.post("http://localhost:8080/challenger/", data=payload, timeout=180)
     # await vv_request_speech(judgeResult['result_msg'])
+    print(r)
 
     # 勝者の提案を次のステップに進める
     if True in judgeResult['result']:
@@ -74,15 +78,15 @@ async def main():
     # TODO: M5Stackに投げる
     
 async def start_background_tasks(app):
-    app['main_logic'] = asyncio.create_task(main_logic())
+    app['main'] = asyncio.create_task(main())
 
 async def cleanup_background_tasks(app):
-    app['main_logic'].cancel()
-    await app['main_logic']
+    app['main'].cancel()
+    await app['main']
     
 
 app = web.Application()
-app.add_routes([web.get('/hello', hello)])
+app.add_routes([web.get('/', main)])
 app.on_startup.append(start_background_tasks)
 app.on_cleanup.append(cleanup_background_tasks)
 
