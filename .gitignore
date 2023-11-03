@@ -1,2 +1,3 @@
 # .envは、除外する
 .env
+.DS_Store
