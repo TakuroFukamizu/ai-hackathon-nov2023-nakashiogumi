@@ -2,12 +2,19 @@
 ## Requirements
 Python3
 
-## Statup
+## Setup
 Install libs
 ```bash
 yarn install
 ```
 
+set configs to `.env` file
+```bash
+VOICEVOX_URL=http://192.168.122.230:50021 # address and port for VoiceVox hosted server
+PORT=8080 # port for running effect service
+```
+
+## Run
 launch voicevox docker  
 ```bash
 docker pull voicevox/voicevox_engine:nvidia-ubuntu20.04-latest
