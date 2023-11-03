@@ -98,7 +98,14 @@ async def handle_reaction(character, current_step):
 
             # 反応を音声出力
             headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-            await session.post("http://localhost:8080/judge/speak/", headers={headers}, data={'Content-Type': 'application/x-www-form-urlencoded'}, timeout=aiohttp.ClientTimeout(total=180))
+            await session.post("http://localhost:8080/judge/speak/", headers={headers}, timeout=aiohttp.ClientTimeout(total=180))
+            
+            json_payloadA= json.dumps({'text':response[0]['result_msg'], 'name':response[0]['name'] })
+            json_payloadB= json.dumps({'text':response[1]['result_msg'], 'name':response[0]['name'] })
+            if character == 'A':
+                await session.post(f'http://localhost:8080/challenger/{character}/speak/', headers=headers, data=json_payloadA, timeout=aiohttp.ClientTimeout(total=180))    
+            else:
+                await session.post(f'http://localhost:8080/challenger/{character}/speak/', headers=headers, data=json_payloadB, timeout=aiohttp.ClientTimeout(total=180))    
             # await vv_request_speech(response['result_msg'])
         except asyncio.TimeoutError:
             # Handle request timeout here
