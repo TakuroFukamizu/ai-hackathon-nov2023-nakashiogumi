@@ -87,9 +87,9 @@ upsetSerif = f'''
 for value in upsetSerifList:
   upsetSerif = f'{upsetSerif}\n * {value}'
 
-print('動揺した時のセリフ')
-print(upsetSerif)
-print('----------------------------------------------------')
+# print('動揺した時のセリフ')
+# print(upsetSerif)
+# print('----------------------------------------------------')
 
 
 # 結合する
@@ -107,9 +107,9 @@ loseSerif = f'''
 for value in loseSerifList:
   loseSerif = f'{loseSerif}\n * {value}'
 
-print('失敗した時のセリフ')
-print(loseSerif)
-print('----------------------------------------------------')
+# print('失敗した時のセリフ')
+# print(loseSerif)
+# print('----------------------------------------------------')
 
 
 # 結合する
@@ -128,9 +128,9 @@ winSerif = f'''
 for value in winSerifList:
   winSerif = f'{winSerif}\n * {value}'
 
-print('成功した時のセリフ')
-print(winSerif)
-print('----------------------------------------------------')
+# print('成功した時のセリフ')
+# print(winSerif)
+# print('----------------------------------------------------')
 
 
 # 結合する
@@ -149,13 +149,79 @@ features = f'''
 for value in featuresList:
   features = f'{features}\n * {value}'
 
-print('性格・行動')
-print(features)
-print('----------------------------------------------------')
-
+# print('性格・行動')
+# print(features)
+# print('----------------------------------------------------')
 
 # 結合する
 chara_setting = f'{chara_setting}\n * {features}'
+
+
+## Embedding・VectorData の学習
+
+# 1. デートの学習・JSON・Data
+date_input_output = open(f'{project_root}/dataset/embedding_io/date_input_output.json', 'r', encoding="utf-8")
+date_training_data = json.load(date_input_output)
+
+
+# デートの学習・Text・Data
+date_training_data_text = f'''
+{proposer_name}の提案するデートプランの事例: 
+'''
+
+# 文字列リストを取り出して、Setする
+for value in date_training_data:
+  date_training_data_text = f'{date_training_data_text}\n * {value["input"]}'
+
+# print('date_training_data_text')
+# print(date_training_data_text)
+# print('----------------------------------------------------')
+
+# 結合する
+chara_setting = f'{chara_setting}\n * {date_training_data_text}'
+
+
+# 2. プレゼントの学習・Data
+present_input_output = open(f'{project_root}/dataset/embedding_io/present_input_output.json', 'r', encoding="utf-8")
+present_training_data = json.load(present_input_output)
+
+
+# プレゼントの学習・Text・Data
+present_training_data_text = f'''
+{proposer_name}の提案するプレゼントの事例: 
+'''
+
+# 文字列リストを取り出して、Setする
+for value in present_training_data:
+  present_training_data_text = f'{present_training_data_text}\n * {value["input"]}'
+
+# print('present_training_data_text')
+# print(present_training_data_text)
+# print('----------------------------------------------------')
+
+# 結合する
+chara_setting = f'{chara_setting}\n * {present_training_data_text}'
+
+
+# 3. 告白の学習・Data
+propose_input_output = open(f'{project_root}/dataset/embedding_io/propose_input_output.json', 'r', encoding="utf-8")
+propose_training_data = json.load(propose_input_output)
+
+# プレゼントの学習・Text・Data
+propose_training_data_text = f'''
+{proposer_name}の告白・プロポーズの事例: 
+'''
+
+# 文字列リストを取り出して、Setする
+for value in propose_training_data:
+  propose_training_data_text = f'{propose_training_data_text}\n * {value["input"]}'
+
+# print('propose_training_data_text')
+# print(propose_training_data_text)
+# print('----------------------------------------------------')
+
+# 結合する
+chara_setting = f'{chara_setting}\n * {propose_training_data_text}'
 
 
 print('最終的に完成した・キャラクター設定')
