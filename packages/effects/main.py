@@ -1,7 +1,7 @@
 from bottle import route, run, request, post
 import requests
 import json
-from .libs.voicebox import vv_resuqest_speach
+import libs
 
 @route('/hello')
 def hello():
@@ -9,10 +9,10 @@ def hello():
 
 @route('/challenger/<name>/', method='POST')
 def speak_challenger(name):
-    data = json.load(request.json)
-    text = data['text']
+    data = request.json  # JSONデータを取得
+    text = data.get('text', '')
     # voicevoxに投げる
-    vv_resuqest_speach(text)
+    ilbs.voicebox.vv_resuqest_speach(text)
     # TODO: M5Stackに投げる
 
 
