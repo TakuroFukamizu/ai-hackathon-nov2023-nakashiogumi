@@ -6,11 +6,11 @@ import json
 import time, threading
 from .libs.voicebox import vv_request_speech
 import concurrent.futures
-from packages.software.challengerA.Character import suggestion as suggestionA #CharactorAの提案
-from packages.software.challengerA.Character import reaction as reactionA #CharactorAのリアクション
-from packages.software.challengerB.Character import suggestion as suggestionB #CharactorBの提案
-from packages.software.challengerB.Character import reaction as reactionB #CharactorBのリアクション
-from packages.software.fileC import hogehoge  # 判定結果とメッセージを返却するロジック
+from packages.software.challengerA.Character import suggestion as suggestionA
+from packages.software.challengerA.Character import reaction as reactionA
+from packages.software.challengerB.Character import suggestion as suggestionB
+from packages.software.challengerB.Character import reaction as reactionB
+from packages.software.Judge import judgment
 
 async def hello(request):
     return web.Response(text="Hello World!")
@@ -24,17 +24,17 @@ async def handle_suggestion(current_step):
         suggestionB({'current_step': current_step})
     )
 
-    # 提案結果をhogehogeに送り判定を受け取る
+    # 提案結果をjudgmentに送り判定を受け取る
     suggestions = [{'message': res['result_msg'], 'current_step': current_step, 'fromType': 'A' if i == 0 else 'B'}
                    for i, res in enumerate(suggestion_results)]
-    judgement = hogehoge(suggestions)
+    judgeResult = judgment(suggestions)
 
     # 判定結果を音声出力
-    await vv_request_speech(judgement['result_msg'])
+    await vv_request_speech(judgeResult['result_msg'])
 
     # 勝者の提案を次のステップに進める
-    if True in judgement['result']:
-        winner_index = judgement['result'].index(True)
+    if True in judgeResult['result']:
+        winner_index = judgeResult['result'].index(True)
         if winner_index == 0:
             return 'A', current_step + 1
         else:
