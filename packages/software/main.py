@@ -1,5 +1,6 @@
 import asyncio
 import aiohttp
+from aiohttp import web
 import json
 import challengerA
 import challengerB
@@ -43,7 +44,7 @@ async def handle_suggestion(current_step):
             # 判定者に提案内容を送る
             judgeResult = Judge.Judge.judgment(suggestions)
             # 選ばれた挑戦者
-            wonChallenger = 'a' if judgeResult[result][0] == True else 'b'
+            wonChallenger = 'a' if judgeResult['result'][0] == True else 'b'
 
             # 判定結果を音声出力
             json_payload = json.dumps({'text': judgeResult['result_msg']})
@@ -57,7 +58,7 @@ async def handle_suggestion(current_step):
                     data=json_payload, 
                     timeout=aiohttp.ClientTimeout(total=180))
             else:
-                r  = await session.post(f'''http://localhost:8080/judge/select/{wonChallenger}''', headers=headers, data=json_payload, timeout=180)
+                r  = await session.post(f'http://localhost:8080/judge/select/{wonChallenger}', headers=headers, data=json_payload, timeout=180)
                 session.post("http://localhost:8080/session/reset", headers=headers, timeout=aiohttp.ClientTimeout(total=180))
             # r = await asyncio.gather(
             #     requests.post("http://localhost:8080/judge/speak/", data=payload, timeout=180),
@@ -119,7 +120,12 @@ async def main():
                     winner_suggestion = challengerA.Character.suggestion if winner == 'A' else challengerB.Character.suggestion
                     res = await winner_suggestion({'current_step': current_step})
                     # await vv_request_speech(res['result_msg'])
-                    await session.post(f'http://localhost:8080/challenger/{winner}/speak/', headers=headers, data=payload, timeout=aiohttp.ClientTimeout(total=180))
+                    json_payloadA= json.dumps({'text':res[0]['result_msg'], 'name':res[0]['name'] })
+                    json_payloadB= json.dumps({'text':res[1]['result_msg'], 'name':res[0]['name'] })
+                    if (winner == 'A'):
+                        await session.post(f'http://localhost:8080/challenger/{winner}/speak/', headers=headers, data=json_payloadA, timeout=aiohttp.ClientTimeout(total=180))    
+                    else:
+                        await session.post(f'http://localhost:8080/challenger/{winner}/speak/', headers=headers, data=json_payloadB, timeout=aiohttp.ClientTimeout(total=180))
                 winner, current_step = await handle_suggestion(current_step)
                 if winner is None:
                     # 両方のreactionを呼び出す
@@ -153,4 +159,4 @@ app.on_startup.append(start_background_tasks)
 app.on_cleanup.append(cleanup_background_tasks)
 
 if __name__ == '__main__':
-    web.run_app(app, host='localhost', port=8080)
+    web.run_app(app, host='localhost', port=8081)
