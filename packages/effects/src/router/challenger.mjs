@@ -12,7 +12,7 @@ router.post('/:id/speak', async (req, res, next) => {
         const speakerId = 3;
 
         // LEDの演出開始
-        switch (id) {
+        switch (req.params.id) {
             case 'a':
                 await Led.send('1'); // EFFECT_MODE_C1_SPK
                 break;

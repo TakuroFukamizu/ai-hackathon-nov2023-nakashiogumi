@@ -33,7 +33,7 @@ router.post('/speak', async (req, res, next) => {
 router.post('/select/:id', async (req, res, next) => {
     try { 
         // LEDの演出開始
-        switch (id) {
+        switch (req.params.id) {
             case 'a':
                 await Led.send('4'); // EFFECT_MODE_C1_WIN
                 break;
