@@ -273,7 +273,8 @@ def suggestion(reqest):
   }
 
 
-suggestion_result = suggestion(req)
+# Test実行用・Call
+# suggestion_result = suggestion(req)
 
 
 ## リアクションをする・Func 
@@ -315,15 +316,15 @@ def reaction(req):
 
   response = llm(messages)
 
-  print(response)
+  # print(response)
 
   return {
     'result_msg': response,
     'name': proposer_name,
   }
 
-
-reaction_result = reaction(req)
+# Test実行用・Call
+# reaction_result = reaction(req)
 
 
 

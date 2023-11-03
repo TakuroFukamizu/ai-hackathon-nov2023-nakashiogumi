@@ -14,7 +14,7 @@ import Judge
 # NOTE: 音声featch path param:特定キャラの名前、 body param:text
 # NOTE: judgmentのfetch対象になる予定
 
-
+# 
 async def handle_suggestion(current_step):
     # 各キャラクターからの提案を並行して取得
     suggestion_results = await asyncio.gather(
