@@ -1,16 +1,25 @@
-import { speach } from './drivers/voicevox.mjs';
-import player from 'node-wav-player';
+import express from 'express';
+import createError from 'http-errors';
+import challenger from './router/challenger.mjs';
+import judge from './router/judge.mjs';
+import { Configs } from './config.mjs';
 
-(async () => { 
-    try { 
-        const text = "これはnodeから呼び出すテストの２回目なのだ";
-        const speakerId = 3;
+const port = Configs.port;
+const app = express();
 
-        const filepath = await speach(text, speakerId);
-        player.play({
-            path: filepath,
-        });
-    } catch (error) { 
-        console.error("error", error); 
-    } 
-})();
+app.get('/hello', (req, res) => {
+    res.send('Hello World!')
+});
+
+app.use('/challenger', challenger);
+app.use('/judge', judge);
+
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+    next(createError(404));
+});
+  
+app.listen(port, () => {
+    console.log("listen:", port);
+});
+  

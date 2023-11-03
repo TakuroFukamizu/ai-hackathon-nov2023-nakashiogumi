@@ -8,8 +8,9 @@ const __dirname = path.dirname(__filename);
 const envpath = path.resolve(__dirname, '..', '.env');
 console.log("envpath", envpath);
 dotenv.config(envpath);
-console.log("env", process.env) // remove this 
+// console.log("env", process.env) // remove this 
 
 export const Configs = {
-    voicevoxUrl: process.env.VOICEVOX_URL
+    voicevoxUrl: process.env.VOICEVOX_URL,
+    port: process.env.PORT
 };
