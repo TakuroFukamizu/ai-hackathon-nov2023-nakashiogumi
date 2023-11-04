@@ -47,6 +47,14 @@ yarn run start
 発話内容の音声データを生成して再生し、LED演出を行う。
 再生が終わったらレスポンスする。
 
+**[Request Example]**  
+```bash
+curl -v -X POST \
+  --data-urlencode 'name=太郎' \
+  --data-urlencode 'text=こんにちは世界' \
+  http://localhost:8080/challenger/a/speak
+```
+
 ### POST /judge/speak
 
 - Path parameters
@@ -56,6 +64,14 @@ yarn run start
 
 発話内容の音声データを生成して再生し、LED演出を行う。
 再生が終わったらレスポンスする。
+
+**[Request Example]**  
+```bash
+curl -v -X POST \
+  --data-urlencode 'name=花子' \
+  --data-urlencode 'text=こんにちは日本' \
+  http://localhost:8080/judge/speak
+```
 
 ### POST /judge/select/:id
 
@@ -67,6 +83,11 @@ yarn run start
 チャレンジャー選択時のLED演出を行う。
 LED演出は `/session/reset` を呼び出すまで継続する。
 
+**[Request Example]**  
+```bash
+curl -v -X POST http://localhost:8080/judge/select/a
+```
+
 ### POST /session/reset 
 
 - Path parameters
@@ -76,6 +97,10 @@ LED演出は `/session/reset` を呼び出すまで継続する。
 
 LED演出を終了する。
 
+**[Request Example]**  
+```bash
+curl -v -X POST http://localhost:8080/session/reset
+```
 
 ## Voicevox Style ID
 
