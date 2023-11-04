@@ -129,19 +129,6 @@ def main():
         headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 
         while current_step <= 3:
-            if winner is not None:
-                # 前のステップの勝者から始める
-                winner_suggestion = challengerA.Character.suggestion if winner == 'A' else challengerB.Character.suggestion
-                res = winner_suggestion({'current_step': current_step})
-                # await vv_request_speech(res['result_msg'])
-                json_payloadA= json.dumps({'text':res[0]['result_msg'], 'name':res[0]['name'] })
-                json_payloadB= json.dumps({'text':res[1]['result_msg'], 'name':res[0]['name'] })
-
-                ## TODO ##
-                # if (winner == 'A'):
-                #     session.post(f'http://localhost:8080/challenger/{winner}/speak/', headers=headers, data=json_payloadA, timeout=aiohttp.ClientTimeout(total=180))    
-                # else:
-                #     session.post(f'http://localhost:8080/challenger/{winner}/speak/', headers=headers, data=json_payloadB, timeout=aiohttp.ClientTimeout(total=180))
             winner, current_step = handle_suggestion(current_step)
             if winner is None:
                 # 両方のreactionを呼び出す
