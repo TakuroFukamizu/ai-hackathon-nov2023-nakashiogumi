@@ -1,5 +1,7 @@
 import express from 'express';
+import player from 'node-wav-player';
 import Led from '../drivers/led.mjs';
+import { speach } from '../drivers/voicevox.mjs';
 
 const router = express.Router();
 
