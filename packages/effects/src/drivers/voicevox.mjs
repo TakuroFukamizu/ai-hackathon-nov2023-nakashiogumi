@@ -1,5 +1,6 @@
 import axios from 'axios'; 
 import fs from 'fs';
+import crypto from 'crypto';
 import { Configs } from '../config.mjs';
 
 export async function speach(text, speakerId) { 
@@ -20,7 +21,7 @@ export async function speach(text, speakerId) {
             }
         );
         console.timeEnd('synthesis');
-        const outfilePaht = './out.wav';
+        const outfilePaht = `./out-${crypto.randomUUID()}.wav`;
         console.log(audioData.data);
         fs.writeFileSync(outfilePaht, audioData.data, 'binary');
         return outfilePaht;
