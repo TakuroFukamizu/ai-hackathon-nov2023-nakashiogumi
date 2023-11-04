@@ -11,6 +11,7 @@ export async function speach(text, speakerId) {
         // console.log("query", query.data);
 
         // get audio data
+        console.time('synthesis');
         const audioData = await axios.post(
             `${baseUrl}/synthesis?speaker=${speakerId}`,
             query.data,
@@ -18,6 +19,7 @@ export async function speach(text, speakerId) {
                 responseType: 'arraybuffer',
             }
         );
+        console.timeEnd('synthesis');
         const outfilePaht = './out.wav';
         console.log(audioData.data);
         fs.writeFileSync(outfilePaht, audioData.data, 'binary');
