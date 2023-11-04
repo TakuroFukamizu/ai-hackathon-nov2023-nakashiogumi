@@ -5,6 +5,7 @@ import json
 import challengerA
 import challengerB
 import Judge
+import requests
 
 # @route('/challenger/<name>/', method='POST')
 
@@ -13,82 +14,71 @@ import Judge
 # 
 
 def handle_suggestion(current_step):
-    try:
-        resultA = challengerA.Character.suggestion({'current_step': current_step})
-        print('resultA')
-        print(resultA)
-        print('-------------------------------------------------------------------')
-        
-        resultB = challengerB.Character.suggestion({'current_step': current_step})
-        print('resultB')
-        print(resultB)
-        print('-------------------------------------------------------------------')
+
+    resultA = challengerA.Character.suggestion({'current_step': current_step})
+    print('resultA')
+    print(resultA)
+    print('-------------------------------------------------------------------')
+    
+    resultB = challengerB.Character.suggestion({'current_step': current_step})
+    print('resultB')
+    print(resultB)
+    print('-------------------------------------------------------------------')
 
 
-        print('🌟🌟')
-        # print(suggestion_results)
-        
-        # 提案結果をjudgmentに送り判定を受け取る
-        suggestions = [
-            {'message': resultA['result_msg'], 'current_step': current_step, 'fromType': resultA['fromType'], 'name': resultA['name']},
-            {'message': resultB['result_msg'], 'current_step': current_step, 'fromType': resultB['fromType'], 'name': resultB['name']},
-        ]
+    print('🌟🌟')
+    # print(suggestion_results)
+  
+  
+    # 提案結果をjudgmentに送り判定を受け取る
+    suggestions = [
+        {'message': resultA['result_msg'], 'current_step': current_step, 'fromType': resultA['fromType'], 'name': resultA['name']},
+        {'message': resultB['result_msg'], 'current_step': current_step, 'fromType': resultB['fromType'], 'name': resultB['name']},
+    ]
 
-        print('🌟')
-        print(suggestions)
-        
-        
-        headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-        json_payloadA= json.dumps({'text':suggestions[0]['message'], 'name':suggestions[0]['name'] })
-        json_payloadB= json.dumps({'text':suggestions[1]['message'], 'name':suggestions[1]['name'] })
-        # それぞれ提案する音声発話
-        userA = suggestions[0]['fromType']
-        userB = suggestions[1]['fromType']
-        
-        ## TODO ##
-        # session.post(f'http://localhost:8080/challenger/{userA}/speak/', headers=headers, data=json_payloadA, timeout=180)
-        # session.post(f'http://localhost:8080/challenger/{userB}/speak/', headers=headers, data=json_payloadB, timeout=180)
-        
-        # 判定者に提案内容を送る
-        judgeResult = Judge.Judge.judgment(suggestions)
-        # 選ばれた挑戦者
-        wonChallenger = 'a' if judgeResult['result'][0] == True else 'b'
+    print('🌟')
+    print(suggestions)
+    
+    
+    headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+    json_payloadA= json.dumps({'text':suggestions[0]['message'], 'name':suggestions[0]['name'] })
+    json_payloadB= json.dumps({'text':suggestions[1]['message'], 'name':suggestions[1]['name'] })
+    # それぞれ提案する音声発話
+    userA = suggestions[0]['fromType']
+    userB = suggestions[1]['fromType']
 
-        # 判定結果を音声出力
-        json_payload = json.dumps({'text': judgeResult['result_msg']})
-        
-        # 判定結果発話　音声再生し、LED演出を行う。 再生が終わったらレスポンスする。
-        # NOTE: 音声出力完了を待つため、timeoutは3分とする
+    # それぞれ提案する音声発話
+    userA = suggestions[0]['fromType']
+    userB = suggestions[1]['fromType']
+    requests.post(f'http://localhost:8080/challenger/{userA}/speak/', headers=headers, data=json_payloadA, timeout=None)
+    requests.post(f'http://localhost:8080/challenger/{userB}/speak/', headers=headers, data=json_payloadA, timeout=None)
+    
+    # 判定者に提案内容を送る
+    judgeResult = Judge.Judge.judgment(suggestions)
+    # 選ばれた挑戦者
+    wonChallenger = 'a' if judgeResult['result'][0] == True else 'b'
 
-        ## TODO ##
-        # if current_step < 3:
-        #     r = session.post(
-        #         "http://localhost:8080/judge/speak/", 
-        #         headers=headers, 
-        #         data=json_payload, 
-        #         timeout=aiohttp.ClientTimeout(total=180))
-        # else:
-        #     r  = session.post(f'http://localhost:8080/judge/select/{wonChallenger}', headers=headers, data=json_payload, timeout=180)
-        #     session.post("http://localhost:8080/session/reset", headers=headers, timeout=aiohttp.ClientTimeout(total=180))
-        # r = await asyncio.gather(
-        #     requests.post("http://localhost:8080/judge/speak/", data=payload, timeout=180),
-        #     requests.post("http://localhost:8080/judge/speak/", data=payload, timeout=180)
-        # )
-        # await vv_request_speech(judgeResult['result_msg'])
+    # 判定結果を音声出力
+    json_payload = json.dumps({'text': judgeResult['result_msg']})
+    
+    # 判定結果発話　音声再生し、LED演出を行う。 再生が終わったらレスポンスする。
+    # NOTE: 音声出力完了を待つため、timeoutは3分とする
 
-
-    ## TODO ##
-    #     print(r)
-    #     if r.status == 200:
-    #         # Read the response body if needed
-    #         # response_body = await response.text()
-    #         pass
-    # except asyncio.TimeoutError:
-    #     # Handle request timeout here
-    #     print("Request timed out")
-    except aiohttp.ClientError as e:
-        # Handle other aiohttp-specific client errors here
-        print(f"Client error: {e}")
+    # # TODO ##
+    # if current_step < 3:
+    #     r = session.post(
+    #         "http://localhost:8080/judge/speak/", 
+    #         headers=headers, 
+    #         data=json_payload, 
+    #         timeout=aiohttp.ClientTimeout(total=180))
+    # else:
+    #     r  = session.post(f'http://localhost:8080/judge/select/{wonChallenger}', headers=headers, data=json_payload, timeout=180)
+    #     session.post("http://localhost:8080/session/reset", headers=headers, timeout=aiohttp.ClientTimeout(total=180))
+    # r = await asyncio.gather(
+    #     requests.post("http://localhost:8080/judge/speak/", data=payload, timeout=180),
+    #     requests.post("http://localhost:8080/judge/speak/", data=payload, timeout=180)
+    # )
+    # await vv_request_speech(judgeResult['result_msg'])
 
     # 勝者の提案を次のステップに進める
     if True in judgeResult['result']:
@@ -111,18 +101,20 @@ def handle_reaction(character, current_step):
         # 反応を音声出力
         headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 
-        ## TODO ##
-        # session.post("http://localhost:8080/judge/speak/", headers={headers}, timeout=aiohttp.ClientTimeout(total=180))
+        requests.post("http://localhost:8080/judge/speak/", headers={headers}, timeout=None)        
         
         json_payloadA= json.dumps({'text':response[0]['result_msg'], 'name':response[0]['name'] })
         json_payloadB= json.dumps({'text':response[1]['result_msg'], 'name':response[0]['name'] })
 
-        ## TODO ##
-        # if character == 'A':
-        #     request.post(f'http://localhost:8080/challenger/{character}/speak/', headers=headers, data=json_payloadA, timeout=aiohttp.ClientTimeout(total=180))    
-        # else:
-        #     request.post(f'http://localhost:8080/challenger/{character}/speak/', headers=headers, data=json_payloadB, timeout=aiohttp.ClientTimeout(total=180))    
-        # await vv_request_speech(response['result_msg'])
+        # TODO ##
+        if character == 'A':
+            requests.post(f'http://localhost:8080/challenger/{character}/speak/', headers=headers, data=json_payloadA,  timeout=None)
+            # session.post(f'http://localhost:8080/challenger/{character}/speak/', headers=headers, data=json_payloadA, timeout=aiohttp.ClientTimeout(total=180))    
+        else:
+            requests.post(f'http://localhost:8080/challenger/{character}/speak/', headers=headers, data=json_payloadB,  timeout=None)
+            # session.post(f'http://localhost:8080/challenger/{character}/speak/', headers=headers, data=json_payloadB, timeout=aiohttp.ClientTimeout(total=180))    
+        
+        # vv_request_speech(response['result_msg'])
     except asyncio.TimeoutError:
         # Handle request timeout here
         print("Request timed out")
