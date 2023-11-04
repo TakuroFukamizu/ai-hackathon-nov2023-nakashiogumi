@@ -1,5 +1,7 @@
 import express from 'express';
 import Led from '../drivers/led.mjs';
+import player from 'node-wav-player';
+import { speach } from '../drivers/voicevox.mjs';
 
 const router = express.Router();
 
@@ -7,7 +9,7 @@ router.post('/speak', async (req, res, next) => {
     console.log(req.body);
     try { 
         const text = req.body.text; // 発話内容
-        const speakerId = 3; // NOTE: 変更する？
+        const speakerId = 3; // ずんだもん // NOTE: 変更する？
 
         // LEDの演出開始
         await Led.send('3'); // EFFECT_MODE_JUDGE_INPROGRESS
