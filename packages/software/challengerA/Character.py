@@ -283,7 +283,7 @@ def suggestion(reqest):
   # print(response)
 
   return {
-    'result_msg': response,
+    'result_msg': response.content,
     'name': proposer_name,
     'fromType': 'a'
   }
@@ -335,7 +335,7 @@ def reaction(req):
   # print(response)
 
   return {
-    'result_msg': response,
+    'result_msg': response.content,
     'name': proposer_name,
     'fromType': 'a'
   }
