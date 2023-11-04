@@ -39,10 +39,12 @@ def handle_suggestion(current_step):
     print('🌟')
     print(suggestions)
     
+    # print(suggestions[0]['message'])
+    # print(type(suggestions[0]['message']))
     
     headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-    json_payloadA= json.dumps({'text':suggestions[0]['message'], 'name':suggestions[0]['name'] })
-    json_payloadB= json.dumps({'text':suggestions[1]['message'], 'name':suggestions[1]['name'] })
+    json_payloadA= {'text':suggestions[0]['message'], 'name':suggestions[0]['name'] }
+    json_payloadB= {'text':suggestions[1]['message'], 'name':suggestions[1]['name'] }
     # それぞれ提案する音声発話
     userA = suggestions[0]['fromType']
     userB = suggestions[1]['fromType']
@@ -59,7 +61,7 @@ def handle_suggestion(current_step):
     wonChallenger = 'a' if judgeResult['result'][0] == True else 'b'
 
     # 判定結果を音声出力
-    json_payload = json.dumps({'text': judgeResult['result_msg']})
+    json_payload = {'text': judgeResult['result_msg']}
     
     # 判定結果発話　音声再生し、LED演出を行う。 再生が終わったらレスポンスする。
     # NOTE: 音声出力完了を待つため、timeoutは3分とする
@@ -103,8 +105,8 @@ def handle_reaction(character, current_step):
 
         requests.post("http://localhost:8080/judge/speak/", headers={headers}, timeout=None)        
         
-        json_payloadA= json.dumps({'text':response[0]['result_msg'], 'name':response[0]['name'] })
-        json_payloadB= json.dumps({'text':response[1]['result_msg'], 'name':response[0]['name'] })
+        json_payloadA= {'text':response[0]['result_msg'], 'name':response[0]['name'] }
+        json_payloadB= {'text':response[1]['result_msg'], 'name':response[0]['name'] }
 
         # TODO ##
         if character == 'a':
