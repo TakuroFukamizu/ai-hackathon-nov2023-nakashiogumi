@@ -74,11 +74,6 @@ def handle_suggestion(current_step):
         r = requests.post(f'http://localhost:8080/judge/select/{wonChallenger}', headers=headers, data=json_payload, timeout=None)
         time.sleep(10)
         requests.post("http://localhost:8080/session/reset", headers=headers, timeout=None)
-        time.sleep(10)
-        requests.post("http://localhost:8080/judge/speak/", data=json_payload, timeout=None)
-        time.sleep(10)
-        requests.post("http://localhost:8080/judge/speak/", data=json_payload, timeout=None)
-
 
     # 勝者の提案を次のステップに進める
     if True in judgeResult['result']:
@@ -125,7 +120,8 @@ def main():
         winner = None
         headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 
-        while current_step <= 3:
+        # while current_step <= 3:
+        while current_step == 0:
             winner, current_step = handle_suggestion(current_step)
             if winner is None:
                 # 両方のreactionを呼び出す
