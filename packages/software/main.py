@@ -84,16 +84,16 @@ def handle_suggestion(current_step):
     if True in judgeResult['result']:
         winner_index = judgeResult['result'].index(True)
         if winner_index == 0:
-            return 'A', current_step + 1
+            return 'a', current_step + 1
         else:
-            return 'B', current_step + 1
+            return 'b', current_step + 1
     else:
         # どちらも勝者がいない場合は次のステップに進まない
         return None, current_step
 
 def handle_reaction(character, current_step):
     try:
-        if character == 'A':
+        if character == 'a':
             response = challengerA.Character.reaction({'current_step': current_step})
         else:
             response = challengerB.Character.reaction({'current_step': current_step})
@@ -107,7 +107,7 @@ def handle_reaction(character, current_step):
         json_payloadB= json.dumps({'text':response[1]['result_msg'], 'name':response[0]['name'] })
 
         # TODO ##
-        if character == 'A':
+        if character == 'a':
             requests.post(f'http://localhost:8080/challenger/{character}/speak/', headers=headers, data=json_payloadA,  timeout=None)
             # session.post(f'http://localhost:8080/challenger/{character}/speak/', headers=headers, data=json_payloadA, timeout=aiohttp.ClientTimeout(total=180))    
         else:
@@ -133,8 +133,8 @@ def main():
             if winner is None:
                 # 両方のreactionを呼び出す
                 
-                handle_reaction('A', current_step),
-                handle_reaction('B', current_step)
+                handle_reaction('a', current_step),
+                handle_reaction('b', current_step)
 
                 break  # 反応後にループ終了
         
