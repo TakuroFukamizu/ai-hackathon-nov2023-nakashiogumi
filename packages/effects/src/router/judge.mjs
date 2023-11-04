@@ -1,7 +1,7 @@
 import express from 'express';
 import Led from '../drivers/led.mjs';
-import player from 'node-wav-player';
 import { speach } from '../drivers/voicevox.mjs';
+import { play } from '../drivers/play.mjs';
 
 const router = express.Router();
 
@@ -16,9 +16,7 @@ router.post('/speak', async (req, res, next) => {
     
         // 音声再生
         const filepath = await speach(text, speakerId);
-        player.play({
-            path: filepath,
-        });
+        await play(filepath);
 
         // LEDの演出終了
         Led.send('0'); // EFFECT_MODE_NONE
