@@ -142,7 +142,7 @@ def judgment(request):
        
     if response and response2:
         return {
-            'result': result, 
+            'result': result.content, 
             'result_msg': response2.content,
             'current_step': request[0]['current_step'], 
         }
