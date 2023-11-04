@@ -6,6 +6,7 @@ import challengerA
 import challengerB
 import Judge
 import requests
+import time
 
 # @route('/challenger/<name>/', method='POST')
 
@@ -39,9 +40,6 @@ def handle_suggestion(current_step):
     print('🌟')
     print(suggestions)
     
-    # print(suggestions[0]['message'])
-    # print(type(suggestions[0]['message']))
-    
     headers = {'Content-Type': 'application/x-www-form-urlencoded'}
     json_payloadA= {'text':suggestions[0]['message'], 'name':suggestions[0]['name'] }
     json_payloadB= {'text':suggestions[1]['message'], 'name':suggestions[1]['name'] }
@@ -53,6 +51,9 @@ def handle_suggestion(current_step):
     userA = suggestions[0]['fromType']
     userB = suggestions[1]['fromType']
     requests.post(f'http://localhost:8080/challenger/{userA}/speak/', headers=headers, data=json_payloadA, timeout=None)
+
+    time.sleep(10)
+
     requests.post(f'http://localhost:8080/challenger/{userB}/speak/', headers=headers, data=json_payloadB, timeout=None)
     
     # 判定者に提案内容を送る
@@ -64,23 +65,20 @@ def handle_suggestion(current_step):
     json_payload = {'text': judgeResult['result_msg']}
     
     # 判定結果発話　音声再生し、LED演出を行う。 再生が終わったらレスポンスする。
-    # NOTE: 音声出力完了を待つため、timeoutは3分とする
 
-    # # TODO ##
-    # if current_step < 3:
-    #     r = session.post(
-    #         "http://localhost:8080/judge/speak/", 
-    #         headers=headers, 
-    #         data=json_payload, 
-    #         timeout=aiohttp.ClientTimeout(total=180))
-    # else:
-    #     r  = session.post(f'http://localhost:8080/judge/select/{wonChallenger}', headers=headers, data=json_payload, timeout=180)
-    #     session.post("http://localhost:8080/session/reset", headers=headers, timeout=aiohttp.ClientTimeout(total=180))
-    # r = await asyncio.gather(
-    #     requests.post("http://localhost:8080/judge/speak/", data=payload, timeout=180),
-    #     requests.post("http://localhost:8080/judge/speak/", data=payload, timeout=180)
-    # )
-    # await vv_request_speech(judgeResult['result_msg'])
+
+    if current_step < 3:
+        requests.post( "http://localhost:8080/judge/speak/",  headers=headers, data=json_payload, timeout=None)
+    else:
+
+        r = requests.post(f'http://localhost:8080/judge/select/{wonChallenger}', headers=headers, data=json_payload, timeout=None)
+        time.sleep(10)
+        requests.post("http://localhost:8080/session/reset", headers=headers, timeout=None)
+        time.sleep(10)
+        requests.post("http://localhost:8080/judge/speak/", data=json_payload, timeout=None)
+        time.sleep(10)
+        requests.post("http://localhost:8080/judge/speak/", data=json_payload, timeout=None)
+
 
     # 勝者の提案を次のステップに進める
     if True in judgeResult['result']:
@@ -97,26 +95,25 @@ def handle_reaction(character, current_step):
     try:
         if character == 'a':
             response = challengerA.Character.reaction({'current_step': current_step})
+            time.sleep(10)
         else:
             response = challengerB.Character.reaction({'current_step': current_step})
+            time.sleep(10)
 
         # 反応を音声出力
         headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 
-        requests.post("http://localhost:8080/judge/speak/", headers={headers}, timeout=None)        
+        requests.post("http://localhost:8080/judge/speak/", headers={headers}, timeout=None)     
+        time.sleep(10)   
         
         json_payloadA= {'text':response[0]['result_msg'], 'name':response[0]['name'] }
         json_payloadB= {'text':response[1]['result_msg'], 'name':response[0]['name'] }
 
-        # TODO ##
         if character == 'a':
             requests.post(f'http://localhost:8080/challenger/{character}/speak/', headers=headers, data=json_payloadA,  timeout=None)
-            # session.post(f'http://localhost:8080/challenger/{character}/speak/', headers=headers, data=json_payloadA, timeout=aiohttp.ClientTimeout(total=180))    
         else:
             requests.post(f'http://localhost:8080/challenger/{character}/speak/', headers=headers, data=json_payloadB,  timeout=None)
-            # session.post(f'http://localhost:8080/challenger/{character}/speak/', headers=headers, data=json_payloadB, timeout=aiohttp.ClientTimeout(total=180))    
         
-        # vv_request_speech(response['result_msg'])
     except asyncio.TimeoutError:
         # Handle request timeout here
         print("Request timed out")
