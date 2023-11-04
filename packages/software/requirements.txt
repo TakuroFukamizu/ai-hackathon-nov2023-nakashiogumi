@@ -6,3 +6,5 @@ requests
 simpleaudio
 aiohttp
 asyncio
+flask==2.0.1
+flask-cors
