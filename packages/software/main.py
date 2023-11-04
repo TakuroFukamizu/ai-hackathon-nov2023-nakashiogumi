@@ -41,8 +41,8 @@ def handle_suggestion(current_step):
     
     
     headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-    json_payloadA= json.dumps({'text':suggestions[0]['message'], 'name':suggestions[0]['name'] })
-    json_payloadB= json.dumps({'text':suggestions[1]['message'], 'name':suggestions[1]['name'] })
+    json_payloadA= json.dumps({'text':suggestions[0]['message'].content, 'name':suggestions[0]['name'] })
+    json_payloadB= json.dumps({'text':suggestions[1]['message'].content, 'name':suggestions[1]['name'] })
     # それぞれ提案する音声発話
     userA = suggestions[0]['fromType']
     userB = suggestions[1]['fromType']
@@ -51,7 +51,7 @@ def handle_suggestion(current_step):
     userA = suggestions[0]['fromType']
     userB = suggestions[1]['fromType']
     requests.post(f'http://localhost:8080/challenger/{userA}/speak/', headers=headers, data=json_payloadA, timeout=None)
-    requests.post(f'http://localhost:8080/challenger/{userB}/speak/', headers=headers, data=json_payloadA, timeout=None)
+    requests.post(f'http://localhost:8080/challenger/{userB}/speak/', headers=headers, data=json_payloadB, timeout=None)
     
     # 判定者に提案内容を送る
     judgeResult = Judge.Judge.judgment(suggestions)
