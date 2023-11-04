@@ -30,8 +30,8 @@ def handle_suggestion(current_step):
         
         # 提案結果をjudgmentに送り判定を受け取る
         suggestions = [
-            {'message': resultA['result_msg'], 'current_step': current_step, 'fromType': resultA['fromType'],},
-            {'message': resultB['result_msg'], 'current_step': current_step, 'fromType': resultB['fromType'],},
+            {'message': resultA['result_msg'], 'current_step': current_step, 'fromType': resultA['fromType'], 'name': resultA['name']},
+            {'message': resultB['result_msg'], 'current_step': current_step, 'fromType': resultB['fromType'], 'name': resultB['name']},
         ]
 
         print('🌟')
@@ -119,9 +119,9 @@ def handle_reaction(character, current_step):
 
         ## TODO ##
         # if character == 'A':
-        #     session.post(f'http://localhost:8080/challenger/{character}/speak/', headers=headers, data=json_payloadA, timeout=aiohttp.ClientTimeout(total=180))    
+        #     request.post(f'http://localhost:8080/challenger/{character}/speak/', headers=headers, data=json_payloadA, timeout=aiohttp.ClientTimeout(total=180))    
         # else:
-        #     session.post(f'http://localhost:8080/challenger/{character}/speak/', headers=headers, data=json_payloadB, timeout=aiohttp.ClientTimeout(total=180))    
+        #     request.post(f'http://localhost:8080/challenger/{character}/speak/', headers=headers, data=json_payloadB, timeout=aiohttp.ClientTimeout(total=180))    
         # await vv_request_speech(response['result_msg'])
     except asyncio.TimeoutError:
         # Handle request timeout here
