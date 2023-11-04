@@ -71,7 +71,7 @@ question_list = [
 def judgment(request):
 
     # 引数から回答を整理（）
-    if request[0]['fromType'] == 'A':
+    if request[0]['fromType'] == 'a':
         proposer_A_answer = request[0]['message']
         proposer_B_answer = request[1]['message']
     else: proposer_A_answer = request[1]['message']
@@ -152,11 +152,11 @@ req =[
     {
         'message': '西村博之のニックネームは「ひろ」です。',
         'current_step': 0,
-        'fromType': 'B' 
+        'fromType': 'b' 
     },{
         'message': '西村博之のニックネームは「ハッキー」です。',
         'current_step': 0,
-        'fromType': 'A' 
+        'fromType': 'a' 
     }]
 
 # Test実行用・Call
