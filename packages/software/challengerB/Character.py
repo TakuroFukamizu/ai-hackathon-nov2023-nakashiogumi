@@ -268,7 +268,7 @@ def suggestion(reqest):
   return {
     'result_msg': response,
     'name': proposer_name,
-    'fromType': 'B'
+    'fromType': 'b'
   }
 
 
@@ -320,7 +320,7 @@ def reaction(req):
   return {
     'result_msg': response,
     'name': proposer_name,
-    'fromType': 'B'
+    'fromType': 'b'
   }
 
 # Test実行用・Call
