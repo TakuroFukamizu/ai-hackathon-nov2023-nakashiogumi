@@ -11,15 +11,17 @@ router.post('/:id/speak', async (req, res, next) => {
         // NOTE: nameの値に応じてspeakerIdを変更する場合はここで実装
         const text = req.body.text; // 発話内容
         const name = req.body.name; // チャレンジャー名
-        const speakerId = 3;
+        let speakerId = 3; // ずんだもん
 
         // LEDの演出開始
         switch (req.params.id) {
             case 'a':
                 await Led.send('1'); // EFFECT_MODE_C1_SPK
+                speakerId = 12; // 白上虎太郎
                 break;
             case 'b':
                 await Led.send('2'); // EFFECT_MODE_C2_SPK
+                speakerId = 11; // 玄野武宏
                 break;
             default:
                 console.error('invalid id');
