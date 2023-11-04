@@ -91,6 +91,7 @@ def handle_suggestion(current_step):
         # どちらも勝者がいない場合は次のステップに進まない
         return None, current_step
 
+# リアクション・ターン
 def handle_reaction(character, current_step):
     try:
         if character == 'a':
@@ -102,12 +103,9 @@ def handle_reaction(character, current_step):
 
         # 反応を音声出力
         headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-
-        requests.post("http://localhost:8080/judge/speak/", headers={headers}, timeout=None)     
-        time.sleep(10)   
         
         json_payloadA= {'text':response[0]['result_msg'], 'name':response[0]['name'] }
-        json_payloadB= {'text':response[1]['result_msg'], 'name':response[0]['name'] }
+        json_payloadB= {'text':response[1]['result_msg'], 'name':response[1]['name'] }
 
         if character == 'a':
             requests.post(f'http://localhost:8080/challenger/{character}/speak/', headers=headers, data=json_payloadA,  timeout=None)
